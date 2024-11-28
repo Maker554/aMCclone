@@ -1,0 +1,42 @@
+
+INSTRUCTIONS
+
+YOU NEED LWJGL LIBRARY
+
+the engine manager manage all the code
+
+implement the Ilogic interface to create the TestGame (use this name for now) class
+
+you can import the RenderManager Class and create an instance of it
+then in the init method call the renderManager.init() method.
+you can import the WindowManager class and use the Client.getWindow(), then use windowManager.init() method
+to get inputs from the window and to edit it (change background color for example)
+
+create a Client class, import what you need and use:
+
+private static WindowManager window;
+private static TestGame game;
+
+    public static void init() {
+        window = new WindowManager(Consts.TITLE, 1280, 720, true);
+        game = new TestGame(); // game declaration
+        EngineManager engine = new EngineManager(); // start of the program
+        try {
+            engine.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static WindowManager getWindow() {
+        return window;
+    }
+
+    public static TestGame getGame() {
+        return game;
+    }
+
+In the engineManager class import the Client class
+import all the rest, now you can refactor all classes how you like
+
+

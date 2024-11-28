@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_release_3_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/aMCclone.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/shaders/fragment.frag" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/shaders/vertex.vert" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/textures/grass.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/textures/terrain.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Block.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Shape.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Type.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/Camera.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/EngineManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/RenderManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/ShaderManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/WindowManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/models/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/models/Model.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/models/ObjectLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/models/Texture.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/Consts.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/ILogic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/Transformation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/test.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="vs-template" />
+        <option value="fs-template" />
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2owMOoQLc54HeEYZQhxiTOjpezd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/maker554/IdeaProjects/aMCclone/resources/textures&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4218391&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/textures" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources" />
+      <recent name="$PROJECT_DIR$/src/resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Launcher" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Launcher" />
+      <module name="aMCclone" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.300" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.300" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="" />
+      <created>1731776157148</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731776157148</updated>
+      <workItem from="1731776158349" duration="8699000" />
+      <workItem from="1731963120763" duration="188000" />
+      <workItem from="1732126271514" duration="8923000" />
+      <workItem from="1732199605279" duration="3067000" />
+      <workItem from="1732267107636" duration="826000" />
+      <workItem from="1732270895247" duration="1119000" />
+      <workItem from="1732308572258" duration="3338000" />
+      <workItem from="1732353123242" duration="1610000" />
+      <workItem from="1732387653669" duration="131000" />
+      <workItem from="1732396050019" duration="18459000" />
+      <workItem from="1732571227059" duration="8838000" />
+      <workItem from="1732741832378" duration="2971000" />
+      <workItem from="1732784701607" duration="2467000" />
+      <workItem from="1732796124317" duration="5931000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
