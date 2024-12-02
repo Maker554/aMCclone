@@ -6,13 +6,7 @@ import renderEngine.models.Texture;
 
 public class Settings {
 
-    public static Texture terrainTexture;
-
     public static void init() throws Exception{
-
-        ObjectLoader loader = new ObjectLoader();
-
-        terrainTexture = new Texture(loader.loadTexture("terrain.png"));
 
     }
 }

@@ -1,5 +1,9 @@
 package net.maker554.aMCclone.terrain;
 
+import renderEngine.models.ObjectLoader;
+import renderEngine.models.Texture;
+
+
 public class Shape {
 
     public static float[] vertices = new float[] {
@@ -59,5 +63,14 @@ public class Shape {
             // Bottom face
             20, 21, 22,
             20, 22, 23
+    };
+
+    public static Texture terrainTexture;
+
+    public static void init() throws Exception {
+
+        ObjectLoader loader = new ObjectLoader();
+
+        terrainTexture = new Texture(loader.loadTexture("terrain.png"));
     };
 }

@@ -16,12 +16,12 @@ public class Block {
         ObjectLoader loader = new ObjectLoader();
 
         entity = new Entity(
-                loader.loadModel(Shape.vertices, loader.getTerrainTextureCoords(4, 1), Shape.indices),
+                loader.loadModel(Shape.vertices, TextureCoords.getTerrainTextureCoords(4, 1, 1, 1, 3, 1), Shape.indices),
                 position,
                 new Vector3f(0,0,0),
                 1.0f);
 
-        entity.getModel().setTexture(Settings.terrainTexture);
+        entity.getModel().setTexture(Shape.terrainTexture);
     }
 
     public Entity getEntity() {

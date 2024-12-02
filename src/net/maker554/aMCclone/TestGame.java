@@ -1,6 +1,8 @@
 package net.maker554.aMCclone;
 
 import net.maker554.aMCclone.terrain.Block;
+import net.maker554.aMCclone.terrain.Chunk;
+import net.maker554.aMCclone.terrain.Shape;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -20,8 +22,7 @@ public class TestGame implements ILogic {
     private final ObjectLoader loader;
     private final WindowManager windowManager;
 
-    private Block block1;
-    private Block block2;
+    private Chunk chunk;
 
     private Camera camera;
     private Texture terrainTexture;
@@ -38,10 +39,9 @@ public class TestGame implements ILogic {
     @Override
     public void init() throws Exception {
         renderManager.init();
-        Settings.init();
+        Shape.init();
 
-        block1 = new Block(new Vector3f(1, 0, -4));
-        block2 = new Block(new Vector3f(-1, 0, -4));
+        chunk = new Chunk(0, 0);
     }
 
     @Override
@@ -84,8 +84,7 @@ public class TestGame implements ILogic {
         }
         windowManager.setClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         renderManager.clear();
-        renderManager.render(block1.getEntity(), camera);
-        renderManager.render(block2.getEntity(), camera);
+        chunk.render(renderManager, camera);
     }
 
     @Override

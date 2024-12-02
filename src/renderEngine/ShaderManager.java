@@ -35,7 +35,7 @@ public class ShaderManager {
 
     public void setUniform(String uniformName, Matrix4f matrix4f) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            GL20.glUniformMatrix4fv(uniforms.get(uniformName),false,
+            GL20.glUniformMatrix4fv(uniforms.get(uniformName), false,
                     matrix4f.get(stack.mallocFloat(16)));
         }
     }

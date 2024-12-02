@@ -4,41 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_release_3_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/aMCclone.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/shaders/fragment.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/shaders/vertex.vert" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/textures/grass.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/textures/terrain.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Block.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Shape.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Type.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/Camera.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/EngineManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/RenderManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/ShaderManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/WindowManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/models/Entity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/models/Model.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/models/ObjectLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/models/Texture.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/Consts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/ILogic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/Transformation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/Utils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderEngine/utils/test.java" afterDir="false" />
+    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="first commit&#10;render cubes">
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TextureCoords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Shape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/models/ObjectLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/models/ObjectLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/utils/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/utils/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,14 +26,26 @@
         <option value="Interface" />
         <option value="vs-template" />
         <option value="fs-template" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Maker554&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Maker554/aMCclone.git&quot;,
+    &quot;accountId&quot;: &quot;6bca788c-35b5-42e9-8ae6-f3f2da702def&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -102,8 +89,12 @@
   </component>
   <component name="RunManager">
     <configuration name="Launcher" type="Application" factoryName="Application">
+      <envs>
+        <env name="LD_BIND_NOW" value="1" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="Launcher" />
       <module name="aMCclone" />
+      <option name="PROGRAM_PARAMETERS" value="-Xms2048M -Xmx4096M" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -138,12 +129,28 @@
       <workItem from="1732571227059" duration="8838000" />
       <workItem from="1732741832378" duration="2971000" />
       <workItem from="1732784701607" duration="2467000" />
-      <workItem from="1732796124317" duration="5931000" />
+      <workItem from="1732796124317" duration="6269000" />
+      <workItem from="1732866084853" duration="4609000" />
+      <workItem from="1732873649329" duration="64000" />
+      <workItem from="1733135000964" duration="2197000" />
     </task>
+    <task id="LOCAL-00001" summary="first commit&#10;render cubes">
+      <option name="closed" value="true" />
+      <created>1732815844449</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732815844449</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit&#10;render cubes" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit&#10;render cubes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

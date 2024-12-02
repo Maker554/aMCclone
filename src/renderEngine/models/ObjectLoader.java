@@ -99,46 +99,4 @@ public class ObjectLoader {
             GL11.glDeleteTextures(texture);
     }
 
-    public float[] getTerrainTextureCoords(int x, int y) {
-        int effectiveY = 16 - y;
-        float y0 = 0.0625f * (y - 1); // 0
-        float y1 = 0.0625f * y;       // 1
-        float x0 = 0.0625f * (x - 1); // 0
-        float x1 = 0.0625f * x;       // 1
-
-        float[] textureCords = new float[] {
-                x0, y1,
-                x1, y1,
-                x1, y0,
-                x0, y0,
-
-                x0, y1,
-                x1, y1,
-                x1, y0,
-                x0, y0,
-
-                x0, y1,
-                x1, y1,
-                x1, y0,
-                x0, y0,
-
-                x0, y1,
-                x1, y1,
-                x1, y0,
-                x0, y0,
-
-                x0, y1,
-                x1, y1,
-                x1, y0,
-                x0, y0,
-
-                x0, y1,
-                x1, y1,
-                x1, y0,
-                x0, y0,
-        };
-
-        return textureCords;
-    }
-
 }
