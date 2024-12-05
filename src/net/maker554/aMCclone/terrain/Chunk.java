@@ -1,9 +1,9 @@
 package net.maker554.aMCclone.terrain;
 
 import net.maker554.aMCclone.Settings;
-import net.maker554.aMCclone.terrain.utils.ArrayManager;
-import net.maker554.aMCclone.terrain.utils.Shape;
-import net.maker554.aMCclone.terrain.utils.Utils;
+import net.maker554.aMCclone.utils.ArrayManager;
+import net.maker554.aMCclone.utils.Resources;
+import net.maker554.aMCclone.utils.Utils;
 import org.joml.Vector3f;
 import renderEngine.Camera;
 import renderEngine.RenderManager;
@@ -15,16 +15,14 @@ import java.util.Random;
 
 public class Chunk {
 
-    private static byte[] data = new byte[Settings.CHUNK_SIZE *Settings.CHUNK_SIZE*Settings.CHUNK_SIZE];
+    private static final byte[] data = new byte[Settings.CHUNK_SIZE *Settings.CHUNK_SIZE*Settings.CHUNK_SIZE];
 
     private static ObjectLoader loader;
-    private static Camera camera;
 
     private int x, z;
 
     public Chunk(int x, int z) {
         loader = new ObjectLoader();
-        camera = new Camera();
         generateChunk();
         this.x = x;
         this.z = z;
@@ -51,13 +49,11 @@ public class Chunk {
             }
             temp = !temp;
         }
-
-        System.out.println(ArrayManager.calculateFacesNumber(data));
     }
 
     public void render(RenderManager renderManager, Camera camera) {
         Model model = loader.loadModel(ArrayManager.generateChunkVertices(data), ArrayManager.generateChunkTextureCords(data), ArrayManager.generateChunkIndices(data));
-        model.setTexture(Shape.terrainTexture);
+        model.setTexture(Resources.terrainTexture);
 
         Entity entity = new Entity(model, new Vector3f(x*Settings.CHUNK_SIZE,0,z*Settings.CHUNK_SIZE), new Vector3f(0, 0, 0), 1);
 

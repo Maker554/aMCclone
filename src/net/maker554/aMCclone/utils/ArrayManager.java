@@ -1,4 +1,4 @@
-package net.maker554.aMCclone.terrain.utils;
+package net.maker554.aMCclone.utils;
 
 import net.maker554.aMCclone.Settings;
 

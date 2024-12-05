@@ -1,8 +1,8 @@
 package net.maker554.aMCclone;
 
 import net.maker554.aMCclone.terrain.Chunk;
-import net.maker554.aMCclone.terrain.utils.Shape;
-import net.maker554.aMCclone.terrain.utils.TextureCoords;
+import net.maker554.aMCclone.utils.Resources;
+import net.maker554.aMCclone.utils.TextureCoords;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -41,7 +41,7 @@ public class TestGame implements ILogic {
     @Override
     public void init() throws Exception {
         renderManager.init();
-        Shape.init();
+        Resources.init();
         TextureCoords.init();
 
         chunk1 = new Chunk(0, 0);

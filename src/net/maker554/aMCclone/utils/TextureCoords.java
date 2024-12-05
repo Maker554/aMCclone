@@ -1,4 +1,4 @@
-package net.maker554.aMCclone.terrain.utils;
+package net.maker554.aMCclone.utils;
 
 import java.util.Dictionary;
 import java.util.Hashtable;

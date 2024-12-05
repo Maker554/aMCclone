@@ -1,4 +1,4 @@
-package net.maker554.aMCclone.terrain.utils;
+package net.maker554.aMCclone.utils;
 
 public enum Directions {
 
