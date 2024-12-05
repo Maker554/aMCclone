@@ -1,13 +1,12 @@
 package net.maker554.aMCclone;
 
-import net.maker554.aMCclone.terrain.Block;
 import net.maker554.aMCclone.terrain.Chunk;
-import net.maker554.aMCclone.terrain.Shape;
+import net.maker554.aMCclone.terrain.utils.Shape;
+import net.maker554.aMCclone.terrain.utils.TextureCoords;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import renderEngine.Camera;
-import renderEngine.models.Entity;
 import renderEngine.models.Texture;
 import renderEngine.utils.ILogic;
 import renderEngine.RenderManager;
@@ -22,7 +21,10 @@ public class TestGame implements ILogic {
     private final ObjectLoader loader;
     private final WindowManager windowManager;
 
-    private Chunk chunk;
+    private Chunk chunk1;
+    private Chunk chunk2;
+    private Chunk chunk3;
+    private Chunk chunk4;
 
     private Camera camera;
     private Texture terrainTexture;
@@ -40,8 +42,12 @@ public class TestGame implements ILogic {
     public void init() throws Exception {
         renderManager.init();
         Shape.init();
+        TextureCoords.init();
 
-        chunk = new Chunk(0, 0);
+        chunk1 = new Chunk(0, 0);
+        chunk2 = new Chunk(1, 0);
+        chunk3 = new Chunk(1, 1);
+        chunk4 = new Chunk(0, 1);
     }
 
     @Override
@@ -62,6 +68,8 @@ public class TestGame implements ILogic {
             cameraInc.y += -1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_R))
             camera.moveRotation(0,2,0);
+        if(windowManager.isKeyPressed(GLFW.GLFW_KEY_Q))
+            camera.moveRotation(0,-2,0);
 
     }
 
@@ -84,7 +92,10 @@ public class TestGame implements ILogic {
         }
         windowManager.setClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         renderManager.clear();
-        chunk.render(renderManager, camera);
+        chunk1.render(renderManager, camera);
+        chunk2.render(renderManager, camera);
+        chunk3.render(renderManager, camera);
+        chunk4.render(renderManager, camera);
     }
 
     @Override

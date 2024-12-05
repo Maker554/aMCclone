@@ -1,63 +1,66 @@
 package net.maker554.aMCclone.terrain;
 
+import net.maker554.aMCclone.Settings;
+import net.maker554.aMCclone.terrain.utils.ArrayManager;
+import net.maker554.aMCclone.terrain.utils.Shape;
+import net.maker554.aMCclone.terrain.utils.Utils;
 import org.joml.Vector3f;
-import org.lwjgl.system.MemoryUtil;
 import renderEngine.Camera;
 import renderEngine.RenderManager;
 import renderEngine.models.Entity;
+import renderEngine.models.Model;
 import renderEngine.models.ObjectLoader;
-
 
 import java.util.Random;
 
 public class Chunk {
 
-    private static final int CHUNK_SIZE = 8;
-
-    private static int[] data = new int[CHUNK_SIZE*CHUNK_SIZE*CHUNK_SIZE];
+    private static byte[] data = new byte[Settings.CHUNK_SIZE *Settings.CHUNK_SIZE*Settings.CHUNK_SIZE];
 
     private static ObjectLoader loader;
     private static Camera camera;
 
-    public Chunk(int x, int y) {
+    private int x, z;
+
+    public Chunk(int x, int z) {
         loader = new ObjectLoader();
         camera = new Camera();
         generateChunk();
+        this.x = x;
+        this.z = z;
     }
 
     private void generateChunk() {
 
         Random a = new Random();
 
-        for(int i = 0; i < CHUNK_SIZE; i++) {
-            for (int j = 0; j < CHUNK_SIZE; j++) {
-                for (int k = 0; k < CHUNK_SIZE; k++)
-                    data[transformDataIndex(i,j,k)] = (int) (a.nextInt() % 20);
-            }
-        }
-    }
+        boolean temp = true;
 
-    public static void render(RenderManager renderManager, Camera camera) {
-        Entity entity;
-        for(int i = 0; i < CHUNK_SIZE; i++)
-            for(int j = 0; j < CHUNK_SIZE; j++)
-                for(int k = 0; k < CHUNK_SIZE; k++)
-                    if(data[transformDataIndex(i,j,k)] == 0) {
-
-                        entity = new Entity(
-                                loader.loadModel(Shape.vertices, TextureCoords.getTerrainTextureCoords(4, 1, 1, 1, 3, 1), Shape.indices),
-                                new Vector3f(i, j, k),
-                                new Vector3f(0, 0, 0),
-                                1.0f);
-                        entity.getModel().setTexture(Shape.terrainTexture);
-
-                        renderManager.render(entity, camera);
-
-                        entity = null;
+        for(byte i = 0; i < Settings.CHUNK_SIZE; i++) {
+            for (byte j = 0; j < Settings.CHUNK_SIZE; j++){
+                for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
+                    if (temp) {
+                        data[ArrayManager.transformDataIndex(i, j, k)] = (byte) Utils.randint(1, 5);
+                        temp = false;
+                    } else {
+                        data[ArrayManager.transformDataIndex(i, j, k)] = 0;
+                        temp = true;
                     }
+                }
+                temp = !temp;
+            }
+            temp = !temp;
+        }
+
+        System.out.println(ArrayManager.calculateFacesNumber(data));
     }
 
-    private static int transformDataIndex(int x, int y, int z) {
-        return (x*CHUNK_SIZE + y)*CHUNK_SIZE + z;
+    public void render(RenderManager renderManager, Camera camera) {
+        Model model = loader.loadModel(ArrayManager.generateChunkVertices(data), ArrayManager.generateChunkTextureCords(data), ArrayManager.generateChunkIndices(data));
+        model.setTexture(Shape.terrainTexture);
+
+        Entity entity = new Entity(model, new Vector3f(x*Settings.CHUNK_SIZE,0,z*Settings.CHUNK_SIZE), new Vector3f(0, 0, 0), 1);
+
+        renderManager.render(entity, camera);
     }
 }

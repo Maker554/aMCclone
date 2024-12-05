@@ -6,6 +6,8 @@ import renderEngine.models.Texture;
 
 public class Settings {
 
+    public static final int CHUNK_SIZE = 8;
+
     public static void init() throws Exception{
 
     }

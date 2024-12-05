@@ -16,9 +16,9 @@ import java.util.List;
 
 public class ObjectLoader {
 
-    private List<Integer> vbos = new ArrayList<>();
-    private List<Integer> vaos = new ArrayList<>();
-    private List<Integer> textures = new ArrayList<>();
+    private final List<Integer> vbos = new ArrayList<>();
+    private final List<Integer> vaos = new ArrayList<>();
+    private final List<Integer> textures = new ArrayList<>();
 
     public Model loadModel(float[] vertices, float[] textureCords, int[] indices) {
         int id = createVAO();
