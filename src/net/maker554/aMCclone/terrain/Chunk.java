@@ -37,13 +37,10 @@ public class Chunk {
         for(byte i = 0; i < Settings.CHUNK_SIZE; i++) {
             for (byte j = 0; j < Settings.CHUNK_SIZE; j++){
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
-                    if (temp) {
-                        data[ArrayManager.transformDataIndex(i, j, k)] = (byte) Utils.randint(1, 5);
-                        temp = false;
-                    } else {
-                        data[ArrayManager.transformDataIndex(i, j, k)] = 0;
-                        temp = true;
-                    }
+
+                        byte sus = (byte) Utils.randint(1, 7);
+                        if (sus > 3) sus = 7;
+                        data[ArrayManager.transformDataIndex(i, j, k)] = sus;
                 }
                 temp = !temp;
             }

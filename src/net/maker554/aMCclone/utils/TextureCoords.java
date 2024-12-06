@@ -14,6 +14,8 @@ public class TextureCoords {
         textureMappings.put(3, new int[] {1, 2});              // cobble
         textureMappings.put(4, new int[] {4, 5, 19, 3, 7, 8});
         textureMappings.put(5, new int[] {14, 4, 5, 4, 1, 4});
+        textureMappings.put(6, new int[] {8, 2, 9, 1, 16, 1});
+        textureMappings.put(7, new int[] {2, 4}); // glass
     }
 
     public static float[] getTerrainTextureCords(int x, int y) {

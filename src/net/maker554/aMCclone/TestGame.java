@@ -45,9 +45,6 @@ public class TestGame implements ILogic {
         TextureCoords.init();
 
         chunk1 = new Chunk(0, 0);
-        chunk2 = new Chunk(1, 0);
-        chunk3 = new Chunk(1, 1);
-        chunk4 = new Chunk(0, 1);
     }
 
     @Override
@@ -93,9 +90,6 @@ public class TestGame implements ILogic {
         windowManager.setClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         renderManager.clear();
         chunk1.render(renderManager, camera);
-        chunk2.render(renderManager, camera);
-        chunk3.render(renderManager, camera);
-        chunk4.render(renderManager, camera);
     }
 
     @Override

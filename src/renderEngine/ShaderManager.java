@@ -63,7 +63,6 @@ public class ShaderManager {
         GL20.glUniform1f(uniforms.get(uniformName), res);
     }
 
-
     public void createVertexShader(String shaderCode) throws Exception {
         vertexShaderID = createShader(shaderCode, GL20.GL_VERTEX_SHADER);
     }

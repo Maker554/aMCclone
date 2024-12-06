@@ -14,7 +14,105 @@ public class ArrayManager {
             for (byte j = 0; j < Settings.CHUNK_SIZE; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
 
-                    if (chunkData[transformDataIndex(i,j,k)] != 0) {
+                    // first every block not transparent
+                    // then every transparent block
+                    if (chunkData[transformDataIndex(i, j, k)] != 0 && chunkData[transformDataIndex(i, j, k)] != 7) {
+                        if (checkNearFace(chunkData, i, j, k, Directions.SUD)) {  // check if the near face is not air
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.NORD)) {
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.EST)) {
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.WEST)) {
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.UP)) {
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = 0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.DOWN)) {
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = -0.5f + k;
+                            vertices[arrayIndex++] = 0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                            vertices[arrayIndex++] = -0.5f + i;
+                            vertices[arrayIndex++] = -0.5f + j;
+                            vertices[arrayIndex++] = 0.5f + k;
+                        }
+                    }
+                }
+        for(byte i = 0; i < Settings.CHUNK_SIZE; i++)
+            for (byte j = 0; j < Settings.CHUNK_SIZE; j++)
+                for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
+
+                    if (chunkData[transformDataIndex(i,j,k)] == 7) {
 
                         if (checkNearFace(chunkData, i, j, k, Directions.SUD)) {  // check if the near face is not air
                             vertices[arrayIndex++] = -0.5f + i;
@@ -120,7 +218,76 @@ public class ArrayManager {
             for (byte j = 0; j < Settings.CHUNK_SIZE; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
 
-                    if (chunkData[transformDataIndex(i,j,k)] != 0) {
+                    if (chunkData[transformDataIndex(i, j, k)] != 0 && chunkData[transformDataIndex(i, j, k)] != 7) {
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.SUD)) {
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 2;
+                            indices[arrayIndex++] = offset + 1;
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 3;
+                            indices[arrayIndex++] = offset + 2;
+                            offset += 4;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.NORD)) {
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 1;
+                            indices[arrayIndex++] = offset + 2;
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 2;
+                            indices[arrayIndex++] = offset + 3;
+                            offset += 4;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.EST)) {
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 2;
+                            indices[arrayIndex++] = offset + 1;
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 3;
+                            indices[arrayIndex++] = offset + 2;
+                            offset += 4;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.WEST)) {
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 1;
+                            indices[arrayIndex++] = offset + 2;
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 2;
+                            indices[arrayIndex++] = offset + 3;
+                            offset += 4;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.UP)) {
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 2;
+                            indices[arrayIndex++] = offset + 1;
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 3;
+                            indices[arrayIndex++] = offset + 2;
+                            offset += 4;
+                        }
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.DOWN)) {
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 1;
+                            indices[arrayIndex++] = offset + 2;
+                            indices[arrayIndex++] = offset;
+                            indices[arrayIndex++] = offset + 2;
+                            indices[arrayIndex++] = offset + 3;
+                            offset += 4;
+
+                        }
+                    }
+                }
+
+        for(byte i = 0; i < Settings.CHUNK_SIZE; i++)
+            for (byte j = 0; j < Settings.CHUNK_SIZE; j++)
+                for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
+
+                    if (chunkData[transformDataIndex(i, j, k)] == 7) {
 
                         if (checkNearFace(chunkData, i, j, k, Directions.SUD)) {
                             indices[arrayIndex++] = offset;
@@ -198,7 +365,47 @@ public class ArrayManager {
             for (byte j = 0; j < Settings.CHUNK_SIZE; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
 
-                    if (chunkData[transformDataIndex(i,j,k)] != 0) {
+                    if (chunkData[transformDataIndex(i, j, k)] != 0 && chunkData[transformDataIndex(i, j, k)] != 7) {
+                        offset = 0;
+                        sample = TextureCoords.buildTextureCords(chunkData[transformDataIndex(i,j,k)]);
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.NORD))
+                            for (int count = 0; count < 8; count++)
+                                textureCords[arrayIndex++] = sample[offset + count]; // put first 8 elements from the sample into the textureCords array
+                        offset += 8; // offset on the sample array to put the others faces
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.SUD))
+                            for (int count = 0; count < 8; count++)
+                                textureCords[arrayIndex++] = sample[offset + count];
+                        offset += 8;
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.EST))
+                            for (int count = 0; count < 8; count++)
+                                textureCords[arrayIndex++] = sample[offset + count];
+                        offset += 8;
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.WEST))
+                            for (int count = 0; count < 8; count++)
+                                textureCords[arrayIndex++] = sample[offset + count];
+                        offset += 8;
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.UP))
+                            for (int count = 0; count < 8; count++)
+                                textureCords[arrayIndex++] = sample[offset + count];
+                        offset += 8;
+
+                        if (checkNearFace(chunkData, i, j, k, Directions.DOWN))
+                            for (int count = 0; count < 8; count++)
+                                textureCords[arrayIndex++] = sample[offset + count];
+                        offset += 8;
+                    }
+                }
+
+        for(byte i = 0; i < Settings.CHUNK_SIZE; i++)
+            for (byte j = 0; j < Settings.CHUNK_SIZE; j++)
+                for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
+
+                    if (chunkData[transformDataIndex(i, j, k)] == 7) {
                         offset = 0;
                         sample = TextureCoords.buildTextureCords(chunkData[transformDataIndex(i,j,k)]);
 
@@ -295,7 +502,7 @@ public class ArrayManager {
         if (checkX >= Settings.CHUNK_SIZE || checkX < 0 || checkY >= Settings.CHUNK_SIZE || checkY < 0 || checkZ >= Settings.CHUNK_SIZE || checkZ < 0 )
             return true;
 
-        return chunkData[transformDataIndex(checkX, checkY, checkZ)] == 0;
+        return chunkData[transformDataIndex(checkX, checkY, checkZ)] == 0 || chunkData[transformDataIndex(checkX, checkY, checkZ)] == 7;
     }
 
     public static int transformDataIndex(int x, int y, int z) {
