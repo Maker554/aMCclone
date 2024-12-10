@@ -4,16 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="first commit&#10;render cubes">
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="added transparent blocks rendering">
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/PerlinNoise.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/ArrayManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/ArrayManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/TextureCoords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/TextureCoords.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderEngine/ShaderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/ShaderManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderEngine/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/WindowManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/Camera.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +138,15 @@
       <workItem from="1733469962694" duration="731000" />
       <workItem from="1733473858222" duration="215000" />
       <workItem from="1733476588291" duration="1205000" />
-      <workItem from="1733483958808" duration="2016000" />
+      <workItem from="1733483958808" duration="2249000" />
+      <workItem from="1733560791864" duration="899000" />
+      <workItem from="1733563252495" duration="15000" />
+      <workItem from="1733565692041" duration="56000" />
+      <workItem from="1733665576602" duration="7299000" />
+      <workItem from="1733682738580" duration="1319000" />
+      <workItem from="1733755213835" duration="97000" />
+      <workItem from="1733763655525" duration="2745000" />
+      <workItem from="1733816251745" duration="624000" />
     </task>
     <task id="LOCAL-00001" summary="first commit&#10;render cubes">
       <option name="closed" value="true" />
@@ -147,7 +156,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732815844449</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="first commit&#10;render cubes">
+      <option name="closed" value="true" />
+      <created>1733486129577</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733486129577</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added transparent blocks rendering">
+      <option name="closed" value="true" />
+      <created>1733486171401</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733486171401</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,7 +180,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit&#10;render cubes" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit&#10;render cubes" />
+    <MESSAGE value="added transparent blocks rendering" />
+    <option name="LAST_COMMIT_MESSAGE" value="added transparent blocks rendering" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

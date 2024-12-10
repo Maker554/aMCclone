@@ -1,12 +1,13 @@
 package net.maker554.aMCclone;
 
+import net.maker554.aMCclone.player.Player;
 import net.maker554.aMCclone.terrain.Chunk;
+import net.maker554.aMCclone.terrain.TerrainGeneration;
 import net.maker554.aMCclone.utils.Resources;
 import net.maker554.aMCclone.utils.TextureCoords;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
-import renderEngine.Camera;
 import renderEngine.models.Texture;
 import renderEngine.utils.ILogic;
 import renderEngine.RenderManager;
@@ -15,7 +16,7 @@ import renderEngine.models.ObjectLoader;
 
 public class TestGame implements ILogic {
 
-    private final float CAMERA_MOVE_SPEED = 0.08f;
+    private final float PLAYER_MOVE_SPEED = 0.08f;
 
     private final RenderManager renderManager;
     private final ObjectLoader loader;
@@ -26,7 +27,7 @@ public class TestGame implements ILogic {
     private Chunk chunk3;
     private Chunk chunk4;
 
-    private Camera camera;
+    private Player player;
     private Texture terrainTexture;
     Vector3f cameraInc;
 
@@ -34,7 +35,7 @@ public class TestGame implements ILogic {
         renderManager = new RenderManager();
         loader = new ObjectLoader();
         windowManager = Client.getWindow();
-        camera = new Camera();
+        player = new Player();
         cameraInc = new Vector3f(0,0,0);
     }
 
@@ -43,8 +44,12 @@ public class TestGame implements ILogic {
         renderManager.init();
         Resources.init();
         TextureCoords.init();
+        TerrainGeneration.init();
 
-        chunk1 = new Chunk(0, 0);
+        chunk1 = new Chunk(1, 0);
+        chunk2 = new Chunk(1, 1);
+        chunk3 = new Chunk(0, 0);
+        chunk4 = new Chunk(0, 1);
     }
 
     @Override
@@ -64,21 +69,20 @@ public class TestGame implements ILogic {
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT))
             cameraInc.y += -1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_R))
-            camera.moveRotation(0,2,0);
+            player.getCamera().moveRotation(0,2,0);
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_Q))
-            camera.moveRotation(0,-2,0);
+            player.getCamera().moveRotation(0,-2,0);
 
     }
 
     @Override
     public void update() {
-        camera.movePosition(
-                cameraInc.x * CAMERA_MOVE_SPEED,
-                cameraInc.y * CAMERA_MOVE_SPEED,
-                cameraInc.z * CAMERA_MOVE_SPEED
+        player.getCamera().movePosition(
+                cameraInc.x * PLAYER_MOVE_SPEED,
+                cameraInc.y * PLAYER_MOVE_SPEED,
+                cameraInc.z * PLAYER_MOVE_SPEED
         );
-
-
+        player.setPosition(player.getCamera().getPosition());
     }
 
     @Override
@@ -89,7 +93,10 @@ public class TestGame implements ILogic {
         }
         windowManager.setClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         renderManager.clear();
-        chunk1.render(renderManager, camera);
+        chunk1.render(renderManager, player.getCamera());
+        chunk2.render(renderManager, player.getCamera());
+        chunk3.render(renderManager, player.getCamera());
+        chunk4.render(renderManager, player.getCamera());
     }
 
     @Override

@@ -13,9 +13,10 @@ public class TextureCoords {
         textureMappings.put(2, new int[] {3, 4});              // diamond
         textureMappings.put(3, new int[] {1, 2});              // cobble
         textureMappings.put(4, new int[] {4, 5, 19, 3, 7, 8});
-        textureMappings.put(5, new int[] {14, 4, 5, 4, 1, 4});
+        textureMappings.put(5, new int[] {14, 4, 1, 1, 1, 4});
         textureMappings.put(6, new int[] {8, 2, 9, 1, 16, 1});
         textureMappings.put(7, new int[] {2, 4}); // glass
+        textureMappings.put(8, textureMap(1,2,3,4,5,6));
     }
 
     public static float[] getTerrainTextureCords(int x, int y) {
@@ -166,6 +167,18 @@ public class TextureCoords {
         } catch (Exception e) {textureCords = getTerrainTextureCords(1, 9);}
 
         return  textureCords;
+    }
+
+    public static int[] textureMap(int sX, int sY) {
+        return new int[]{sX, sY};
+    }
+
+    public static int[] textureMap(int sX, int sY, int tX, int tY) {
+        return new int[]{sX, sY, tX, tY};
+    }
+
+    public static int[] textureMap(int sX, int sY, int tX, int tY, int bX, int bY) {
+        return new int[]{sX, sY, tX, tY, bX, bY};
     }
 }
 

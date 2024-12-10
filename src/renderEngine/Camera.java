@@ -28,16 +28,12 @@ public class Camera {
        position.y += y;
     }
 
-    public void setPosition(float x, float y, float z) {
-        this.position.x = x;
-        this.position.y = y;
-        this.position.z = z;
+    public void setPosition(Vector3f position_in) {
+        this.position = position_in;
     }
 
-    public void setRotation(float x, float y, float z) {
-        this.rotation.x = x;
-        this.rotation.y = y;
-        this.rotation.z = z;
+    public void setRotation(Vector3f rotation_in) {
+        this.rotation = rotation_in;
     }
 
     public void moveRotation(float x, float y, float z) {
