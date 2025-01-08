@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="added transparent blocks rendering">
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/PerlinNoise.java" afterDir="false" />
+    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="first commit&#10;render chunks with only one mash, all the cube faces  datas are packed into one single entity.&#10;&#10;Hidden faces are not rendered for optimization.&#10;&#10;Created mappings for blockType and the actual textures.&#10;&#10;Chunks are rendered with their position as offset instead of all in the same place">
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/Mouse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_5_24,_6_33 PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_5_24__6_33PM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/TextureCoords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/TextureCoords.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderEngine/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/Camera.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,17 +61,18 @@
   &quot;keyToString&quot;: {
     &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
     &quot;Application.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/maker554/IdeaProjects/aMCclone/resources/textures&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Mattias/Documents/Programmazione/javalib/lwjgl-release-3.3.4-custom&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.4218391&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
@@ -84,6 +84,7 @@
       <recent name="$PROJECT_DIR$/resources/textures" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Mattias\Documents\Programmazione\python\aMCclone\src\renderEngine" />
       <recent name="$PROJECT_DIR$/resources" />
       <recent name="$PROJECT_DIR$/src/resources" />
     </key>
@@ -100,14 +101,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.300" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.300" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -134,19 +127,6 @@
       <workItem from="1732866084853" duration="4609000" />
       <workItem from="1732873649329" duration="64000" />
       <workItem from="1733135000964" duration="2197000" />
-      <workItem from="1733420654487" duration="154000" />
-      <workItem from="1733469962694" duration="731000" />
-      <workItem from="1733473858222" duration="215000" />
-      <workItem from="1733476588291" duration="1205000" />
-      <workItem from="1733483958808" duration="2249000" />
-      <workItem from="1733560791864" duration="899000" />
-      <workItem from="1733563252495" duration="15000" />
-      <workItem from="1733565692041" duration="56000" />
-      <workItem from="1733665576602" duration="7299000" />
-      <workItem from="1733682738580" duration="1319000" />
-      <workItem from="1733755213835" duration="97000" />
-      <workItem from="1733763655525" duration="2745000" />
-      <workItem from="1733816251745" duration="624000" />
     </task>
     <task id="LOCAL-00001" summary="first commit&#10;render cubes">
       <option name="closed" value="true" />
@@ -156,23 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732815844449</updated>
     </task>
-    <task id="LOCAL-00002" summary="first commit&#10;render cubes">
+    <task id="LOCAL-00002" summary="first commit&#10;render chunks with only one mash, all the cube faces  datas are packed into one single entity.&#10;&#10;Hidden faces are not rendered for optimization.&#10;&#10;Created mappings for blockType and the actual textures.&#10;&#10;Chunks are rendered with their position as offset instead of all in the same place">
       <option name="closed" value="true" />
-      <created>1733486129577</created>
+      <created>1733418360507</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1733486129577</updated>
+      <updated>1733418360507</updated>
     </task>
-    <task id="LOCAL-00003" summary="added transparent blocks rendering">
-      <option name="closed" value="true" />
-      <created>1733486171401</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1733486171401</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,8 +152,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit&#10;render cubes" />
-    <MESSAGE value="added transparent blocks rendering" />
-    <option name="LAST_COMMIT_MESSAGE" value="added transparent blocks rendering" />
+    <MESSAGE value="first commit&#10;render chunks with only one mash, all the cube faces  datas are packed into one single entity.&#10;&#10;Hidden faces are not rendered for optimization.&#10;&#10;Created mappings for blockType and the actual textures.&#10;&#10;Chunks are rendered with their position as offset instead of all in the same place" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit&#10;render chunks with only one mash, all the cube faces  datas are packed into one single entity.&#10;&#10;Hidden faces are not rendered for optimization.&#10;&#10;Created mappings for blockType and the actual textures.&#10;&#10;Chunks are rendered with their position as offset instead of all in the same place" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

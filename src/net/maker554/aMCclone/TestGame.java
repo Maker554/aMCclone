@@ -6,6 +6,7 @@ import net.maker554.aMCclone.terrain.TerrainGeneration;
 import net.maker554.aMCclone.utils.Resources;
 import net.maker554.aMCclone.utils.TextureCoords;
 import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import renderEngine.models.Texture;
@@ -13,6 +14,10 @@ import renderEngine.utils.ILogic;
 import renderEngine.RenderManager;
 import renderEngine.WindowManager;
 import renderEngine.models.ObjectLoader;
+
+import java.nio.DoubleBuffer;
+
+import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
 
 public class TestGame implements ILogic {
 
@@ -77,12 +82,11 @@ public class TestGame implements ILogic {
 
     @Override
     public void update() {
-        player.getCamera().movePosition(
+        player.movePosition(
                 cameraInc.x * PLAYER_MOVE_SPEED,
                 cameraInc.y * PLAYER_MOVE_SPEED,
                 cameraInc.z * PLAYER_MOVE_SPEED
         );
-        player.setPosition(player.getCamera().getPosition());
     }
 
     @Override

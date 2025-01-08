@@ -19,6 +19,8 @@ public class Chunk {
 
     private static ObjectLoader loader;
 
+    private Entity entity;
+
     private int x, z;
 
     public Chunk(int x, int z) {
@@ -27,7 +29,13 @@ public class Chunk {
         this.z = z;
         System.out.println(this.x);
         System.out.println(this.z);
+
         generateChunk();
+
+        Model model = loader.loadModel(ArrayManager.generateChunkVertices(data), ArrayManager.generateChunkTextureCords(data), ArrayManager.generateChunkIndices(data));
+        model.setTexture(Resources.terrainTexture);
+
+        entity = new Entity(model, new Vector3f(x*Settings.CHUNK_SIZE,0,z*Settings.CHUNK_SIZE), new Vector3f(0, 0, 0), 1);
     }
 
     private void generateChunk() {
@@ -38,12 +46,11 @@ public class Chunk {
     }
 
     public void render(RenderManager renderManager, Camera camera) {
-        Model model = loader.loadModel(ArrayManager.generateChunkVertices(data), ArrayManager.generateChunkTextureCords(data), ArrayManager.generateChunkIndices(data));
-        model.setTexture(Resources.terrainTexture);
 
-        Entity entity = new Entity(model, new Vector3f(x*Settings.CHUNK_SIZE,0,z*Settings.CHUNK_SIZE), new Vector3f(0, 0, 0), 1);
-
-        renderManager.render(entity, camera);
+        if(entity != null)
+            renderManager.render(entity, camera);
+        else
+            System.out.println("nononon");
     }
 
     private Vector3f getGlobalCordsFromChunkCords(int inx, int iny, int inz) {
