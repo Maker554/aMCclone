@@ -37,9 +37,18 @@ public class Camera {
     }
 
     public void moveRotation(float x, float y, float z) {
-        this.rotation.x += x;
+        if (rotation.x + x <= 90)
+            if (rotation.x >= -90)
+                this.rotation.x += x;
+            else
+                this.rotation.x = -90;
+        else
+            this.rotation.x = 90;
         this.rotation.y += y;
         this.rotation.z += z;
+        if (rotation.x > 360) rotation.x -= 360;
+        if (rotation.y > 360) rotation.y -= 360;
+        if (rotation.z > 360) rotation.z -= 360;
     }
 
     public Vector3f getPosition() {

@@ -502,6 +502,9 @@ public class ArrayManager {
         if (checkX >= Settings.CHUNK_SIZE || checkX < 0 || checkY >= Settings.CHUNK_SIZE || checkY < 0 || checkZ >= Settings.CHUNK_SIZE || checkZ < 0 )
             return true;
 
+        if (chunkData[transformDataIndex(checkX, checkY, checkZ)] == 7 && chunkData[transformDataIndex(x, y, z)] == 7)
+            return false;
+
         return chunkData[transformDataIndex(checkX, checkY, checkZ)] == 0 || chunkData[transformDataIndex(checkX, checkY, checkZ)] == 7;
     }
 

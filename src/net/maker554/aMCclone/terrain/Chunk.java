@@ -27,8 +27,6 @@ public class Chunk {
         loader = new ObjectLoader();
         this.x = x;
         this.z = z;
-        System.out.println(this.x);
-        System.out.println(this.z);
 
         generateChunk();
 
@@ -40,8 +38,6 @@ public class Chunk {
 
     private void generateChunk() {
 
-        int terrainHeight = 2;
-
         data = TerrainGeneration.generateTerrain(x, z);
     }
 
@@ -50,7 +46,7 @@ public class Chunk {
         if(entity != null)
             renderManager.render(entity, camera);
         else
-            System.out.println("nononon");
+            System.out.println("entity is null");
     }
 
     private Vector3f getGlobalCordsFromChunkCords(int inx, int iny, int inz) {

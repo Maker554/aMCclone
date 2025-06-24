@@ -5,15 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="first commit&#10;render chunks with only one mash, all the cube faces  datas are packed into one single entity.&#10;&#10;Hidden faces are not rendered for optimization.&#10;&#10;Created mappings for blockType and the actual textures.&#10;&#10;Chunks are rendered with their position as offset instead of all in the same place">
-      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/Mouse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/textures/crosshair.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/textures/empty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/textures/toolbar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/assets/Cube.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/assets/Shape.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/assets/Square.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/InputHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/CrossHair.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/GuiElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/Hand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/Inventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/ToolBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lwjgl_release_3_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_5_24,_6_33 PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_5_24__6_33PM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/Mouse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/ArrayManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/ArrayManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/Resources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/TextureCoords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/TextureCoords.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderEngine/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/RenderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/RenderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/WindowManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,10 +42,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="vs-template" />
         <option value="fs-template" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -43,7 +62,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Maker554/aMCclone.git&quot;,
-    &quot;accountId&quot;: &quot;6bca788c-35b5-42e9-8ae6-f3f2da702def&quot;
+    &quot;accountId&quot;: &quot;20fc6ceb-97c3-4bf9-8875-d45ff7d27823&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -63,10 +82,12 @@
     &quot;Application.test.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Mattias/Documents/Programmazione/javalib/lwjgl-release-3.3.4-custom&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/MATTI/javalib/lwjgl-release-3.3.6-custom&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -84,6 +105,7 @@
       <recent name="$PROJECT_DIR$/resources/textures" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MATTI\IdeaProjects\aMCclone\resources\textures" />
       <recent name="C:\Users\Mattias\Documents\Programmazione\python\aMCclone\src\renderEngine" />
       <recent name="$PROJECT_DIR$/resources" />
       <recent name="$PROJECT_DIR$/src/resources" />
@@ -101,6 +123,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -127,6 +157,21 @@
       <workItem from="1732866084853" duration="4609000" />
       <workItem from="1732873649329" duration="64000" />
       <workItem from="1733135000964" duration="2197000" />
+      <workItem from="1737800458456" duration="4954000" />
+      <workItem from="1740817270098" duration="49000" />
+      <workItem from="1743424983999" duration="5034000" />
+      <workItem from="1743699157546" duration="4927000" />
+      <workItem from="1744126629921" duration="1126000" />
+      <workItem from="1744283592084" duration="9000" />
+      <workItem from="1744443451223" duration="12000" />
+      <workItem from="1744614303151" duration="113000" />
+      <workItem from="1747983374615" duration="26000" />
+      <workItem from="1749414423854" duration="3386000" />
+      <workItem from="1749459743883" duration="2835000" />
+      <workItem from="1749462642265" duration="2707000" />
+      <workItem from="1750282740823" duration="7929000" />
+      <workItem from="1750466355554" duration="1669000" />
+      <workItem from="1750699738462" duration="9707000" />
     </task>
     <task id="LOCAL-00001" summary="first commit&#10;render cubes">
       <option name="closed" value="true" />

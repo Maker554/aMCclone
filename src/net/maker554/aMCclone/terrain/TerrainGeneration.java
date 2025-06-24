@@ -7,7 +7,7 @@ import org.joml.Vector2i;
 public class TerrainGeneration {
 
     private static final int OCTAVES = 7;
-    private static final float LACUNARITY = 2f;
+    private static final float LACUNARITY = 1f;
     private static final float GAIN = 0.7f;
 
     private static final float I_AMPLITUDE = 4;
@@ -34,7 +34,7 @@ public class TerrainGeneration {
             amplitude *= GAIN;
             frequency *= LACUNARITY;
 
-            offset += amplitude / 3;
+            //offset += amplitude / 3;
         }
 
         return value;
@@ -49,8 +49,7 @@ public class TerrainGeneration {
             for (int y = 0; y < Settings.CHUNK_SIZE; y++) {
                 for (int z = 0; z < Settings.CHUNK_SIZE; z++) {
                     float columnHeight = fractalNoise(new Vector2i(x + (chunk_x * Settings.CHUNK_SIZE), z + (chunk_z * Settings.CHUNK_SIZE))) - offset;
-
-                    data[ArrayManager.transformDataIndex(x, y, z)] = (byte) ((y < columnHeight) ? 1 : 0); // 1 for solid block, 0 for air
+                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) ((y < columnHeight) ? 1 : 0);
                 }
             }
         }

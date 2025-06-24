@@ -1,21 +1,20 @@
 package net.maker554.aMCclone;
 
+import net.maker554.aMCclone.input.Mouse;
 import net.maker554.aMCclone.player.Player;
-import net.maker554.aMCclone.terrain.Chunk;
+import net.maker554.aMCclone.terrain.ChunkManager;
 import net.maker554.aMCclone.terrain.TerrainGeneration;
+import net.maker554.aMCclone.input.InputHandler;
 import net.maker554.aMCclone.utils.Resources;
 import net.maker554.aMCclone.utils.TextureCoords;
+import org.joml.Vector2i;
 import org.joml.Vector3f;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
-import renderEngine.models.Texture;
 import renderEngine.utils.ILogic;
 import renderEngine.RenderManager;
 import renderEngine.WindowManager;
 import renderEngine.models.ObjectLoader;
-
-import java.nio.DoubleBuffer;
 
 import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
 
@@ -27,20 +26,15 @@ public class TestGame implements ILogic {
     private final ObjectLoader loader;
     private final WindowManager windowManager;
 
-    private Chunk chunk1;
-    private Chunk chunk2;
-    private Chunk chunk3;
-    private Chunk chunk4;
-
     private Player player;
-    private Texture terrainTexture;
     Vector3f cameraInc;
+
+    private boolean inInventory = false;
 
     public TestGame() {
         renderManager = new RenderManager();
         loader = new ObjectLoader();
         windowManager = Client.getWindow();
-        player = new Player();
         cameraInc = new Vector3f(0,0,0);
     }
 
@@ -50,11 +44,11 @@ public class TestGame implements ILogic {
         Resources.init();
         TextureCoords.init();
         TerrainGeneration.init();
+        Mouse.init(windowManager.getWindow());
 
-        chunk1 = new Chunk(1, 0);
-        chunk2 = new Chunk(1, 1);
-        chunk3 = new Chunk(0, 0);
-        chunk4 = new Chunk(0, 1);
+        ChunkManager.generate(new Vector2i(0, 0));
+
+        player = new Player();
     }
 
     @Override
@@ -73,11 +67,14 @@ public class TestGame implements ILogic {
             cameraInc.y += 1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT))
             cameraInc.y += -1;
-        if(windowManager.isKeyPressed(GLFW.GLFW_KEY_R))
-            player.getCamera().moveRotation(0,2,0);
-        if(windowManager.isKeyPressed(GLFW.GLFW_KEY_Q))
-            player.getCamera().moveRotation(0,-2,0);
 
+        if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_E))
+            inInventory = !inInventory;
+        if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_C))
+            Mouse.movingCamera = !Mouse.movingCamera;
+
+        if(Mouse.getMovement().x != 0 || Mouse.getMovement().y != 0)
+            player.getCamera().moveRotation(Mouse.getMovement().y, Mouse.getMovement().x, 0);
     }
 
     @Override
@@ -87,6 +84,8 @@ public class TestGame implements ILogic {
                 cameraInc.y * PLAYER_MOVE_SPEED,
                 cameraInc.z * PLAYER_MOVE_SPEED
         );
+
+        player.sync();
     }
 
     @Override
@@ -95,12 +94,16 @@ public class TestGame implements ILogic {
             GL11.glViewport(0, 0, windowManager.getWidth(), windowManager.getHeight());
             windowManager.setResize(true);
         }
-        windowManager.setClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+        windowManager.setClearColor(0.79f, 1.0f, 1.0f, 1.0f);
         renderManager.clear();
-        chunk1.render(renderManager, player.getCamera());
-        chunk2.render(renderManager, player.getCamera());
-        chunk3.render(renderManager, player.getCamera());
-        chunk4.render(renderManager, player.getCamera());
+
+        ChunkManager.render(renderManager, player.getCamera());
+
+        if (inInventory)
+            player.inventory.render(renderManager);
+        player.crossHair.render(renderManager);
+        player.hand.render(renderManager);
+        player.taskBar.render(renderManager);
     }
 
     @Override

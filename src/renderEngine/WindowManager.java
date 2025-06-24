@@ -1,8 +1,11 @@
 package renderEngine;
 
+import net.maker554.aMCclone.Client;
+import net.maker554.aMCclone.TestGame;
 import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWFramebufferSizeCallbackI;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -10,7 +13,7 @@ import org.lwjgl.system.MemoryUtil;
 
 public class WindowManager {
 
-    public static final float FOV = (float) Math.toRadians(60);
+    public static final float FOV = (float) Math.toRadians(90);
     public static final float Z_NEAR = 0.01f;
     public static final float Z_FAR = 1000f;
 
@@ -78,6 +81,19 @@ public class WindowManager {
         }
 
         GLFW.glfwMakeContextCurrent(window);
+
+        // callbacks
+        GLFWFramebufferSizeCallbackI framebuffer_size_callback = new GLFWFramebufferSizeCallbackI() {
+            @Override
+            public void invoke(long window, int width, int height) {
+                GL11.glViewport(0, 0, width, height);
+            }};
+        GLFW.glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+        GLFW.glfwSetWindowRefreshCallback(window, (win) -> {
+            Client.getGame().render();
+            GLFW.glfwSwapBuffers(win);
+        });
 
         if(isvSync())
             GLFW.glfwSwapInterval(1);
@@ -155,6 +171,11 @@ public class WindowManager {
     public Matrix4f updateProjectMatrix() {
         float aspectRatio = (float) width / height;
         return projectionMatrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
+    }
+
+    public Matrix4f updateProjectMatrix(float pov) {
+        float aspectRatio = (float) width / height;
+        return projectionMatrix.setPerspective(pov, aspectRatio, Z_NEAR, Z_FAR);
     }
 
     public Matrix4f updateProjectMatrix(Matrix4f matrix, int width, int height) {

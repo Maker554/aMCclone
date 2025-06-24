@@ -10,8 +10,9 @@ public class Client {
     private static TestGame game;
 
     public static void init() {
-        window = new WindowManager(Consts.TITLE, 1280, 720, true);
+        window = new WindowManager(Consts.TITLE, 1280, 720, true); //1280 720
         game = new TestGame(); // game declaration
+
         EngineManager engine = new EngineManager(); // start of the program
         try {
             engine.start();

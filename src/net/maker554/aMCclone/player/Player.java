@@ -1,5 +1,9 @@
 package net.maker554.aMCclone.player;
 
+import net.maker554.aMCclone.player.gui.CrossHair;
+import net.maker554.aMCclone.player.gui.Hand;
+import net.maker554.aMCclone.player.gui.Inventory;
+import net.maker554.aMCclone.player.gui.ToolBar;
 import org.joml.Vector3f;
 import renderEngine.Camera;
 
@@ -8,13 +12,20 @@ public class Player {
     private  Camera camera;
     private  Vector3f position;
 
+    //GUI ELEMENTS
+    public Hand hand;
+    public ToolBar taskBar;
+    public CrossHair crossHair;
+    public Inventory inventory;
+
     public Player() {
         camera = new Camera();
         position = new Vector3f();
-    }
 
-    public Camera getCamera() {
-        return camera;
+        hand = new Hand();
+        taskBar = new ToolBar();
+        crossHair = new CrossHair();
+        inventory = new Inventory();
     }
 
     public void movePosition(float x, float y, float z) {
@@ -30,8 +41,15 @@ public class Player {
         camera.movePosition(x, y, z);
     }
 
+    public void sync() {
+    }
+
     public  Vector3f getPosition() {
         return position;
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 
     public  void setPosition(Vector3f position) {
