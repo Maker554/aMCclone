@@ -3,6 +3,8 @@ package renderEngine;
 import net.maker554.aMCclone.Client;
 import net.maker554.aMCclone.TestGame;
 import org.joml.Matrix4f;
+import org.joml.Vector2i;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWFramebufferSizeCallbackI;
@@ -11,9 +13,11 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
+import java.nio.IntBuffer;
+
 public class WindowManager {
 
-    public static final float FOV = (float) Math.toRadians(90);
+    public static final float FOV = (float) Math.toRadians(100);
     public static final float Z_NEAR = 0.01f;
     public static final float Z_FAR = 1000f;
 
@@ -60,10 +64,15 @@ public class WindowManager {
         if(window == MemoryUtil.NULL)
             throw new RuntimeException("Failed to create GLFW window");
 
-        GLFW.glfwSetFramebufferSizeCallback(window, (window, width, height) -> {
+        GLFW.glfwSetFramebufferSizeCallback(window, (win, width, height) -> {
             this.width = width;
             this.height = height;
             this.setResize(true);
+        });
+
+        GLFW.glfwSetWindowSizeCallback(window, (long win, int width, int height) -> {
+            this.width = width;
+            this.height = height;
         });
 
         GLFW.glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {

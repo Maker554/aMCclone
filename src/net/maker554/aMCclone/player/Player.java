@@ -9,7 +9,7 @@ import renderEngine.Camera;
 
 public class Player {
 
-    private  Camera camera;
+    private final Camera camera;
     private  Vector3f position;
 
     //GUI ELEMENTS
@@ -54,5 +54,6 @@ public class Player {
 
     public  void setPosition(Vector3f position) {
         this.position = position;
+        camera.setPosition(position);
     }
 }

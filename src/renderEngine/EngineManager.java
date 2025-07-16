@@ -1,6 +1,7 @@
 package renderEngine;
 
 import net.maker554.aMCclone.Client;
+import net.maker554.aMCclone.input.Mouse;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import renderEngine.utils.Consts;
@@ -26,6 +27,7 @@ public class EngineManager {
         gameLogic = Client.getGame();
         window.init();
         gameLogic.init();
+        Mouse.init(window.getWindow());
     }
 
     public void start() throws Exception {

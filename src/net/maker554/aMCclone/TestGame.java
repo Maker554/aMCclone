@@ -7,6 +7,7 @@ import net.maker554.aMCclone.terrain.TerrainGeneration;
 import net.maker554.aMCclone.input.InputHandler;
 import net.maker554.aMCclone.utils.Resources;
 import net.maker554.aMCclone.utils.TextureCoords;
+import org.joml.Vector2f;
 import org.joml.Vector2i;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
@@ -21,13 +22,14 @@ import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
 public class TestGame implements ILogic {
 
     private final float PLAYER_MOVE_SPEED = 0.08f;
+    private final float CAMERA_SPEED = 0.3f;
 
     private final RenderManager renderManager;
     private final ObjectLoader loader;
     private final WindowManager windowManager;
 
     private Player player;
-    Vector3f cameraInc;
+    private Vector3f cameraInc;
 
     private boolean inInventory = false;
 
@@ -44,11 +46,11 @@ public class TestGame implements ILogic {
         Resources.init();
         TextureCoords.init();
         TerrainGeneration.init();
-        Mouse.init(windowManager.getWindow());
 
         ChunkManager.generate(new Vector2i(0, 0));
 
         player = new Player();
+        player.setPosition(new Vector3f(0, 8f, 0));
     }
 
     @Override
@@ -67,14 +69,22 @@ public class TestGame implements ILogic {
             cameraInc.y += 1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT))
             cameraInc.y += -1;
+        if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_LEFT_ALT) && !InputHandler.getIsMouseFree()) {
+            InputHandler.freeMouseAlt();
+        }
+        if(InputHandler.isKeyReleased(GLFW.GLFW_KEY_LEFT_ALT) && InputHandler.getIsMouseFree()) {
+            InputHandler.lockMouseAlt();
+        }
 
-        if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_E))
+        if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_E)) {
             inInventory = !inInventory;
-        if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_C))
-            Mouse.movingCamera = !Mouse.movingCamera;
-
-        if(Mouse.getMovement().x != 0 || Mouse.getMovement().y != 0)
-            player.getCamera().moveRotation(Mouse.getMovement().y, Mouse.getMovement().x, 0);
+            if (inInventory) {
+                InputHandler.stopAlting();
+                InputHandler.freeMouse();
+            } else {
+                InputHandler.lockMouse();
+            }
+        }
     }
 
     @Override
@@ -84,6 +94,12 @@ public class TestGame implements ILogic {
                 cameraInc.y * PLAYER_MOVE_SPEED,
                 cameraInc.z * PLAYER_MOVE_SPEED
         );
+
+        if (!InputHandler.getIsMouseFree()) {
+            Vector2f rotVec = Mouse.getDisplayVec();
+            player.getCamera().moveRotation(rotVec.x * CAMERA_SPEED, rotVec.y * CAMERA_SPEED, 0);
+            Mouse.resetDelta();
+        }
 
         player.sync();
     }
