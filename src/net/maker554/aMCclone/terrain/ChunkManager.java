@@ -16,7 +16,7 @@ public class ChunkManager {
     public static void generate(Vector2i playerPos) {
         for (int i=0; i<RENDER_DISTANCE*2; i++) {
             for (int j=0; j<RENDER_DISTANCE*2; j++) {
-                chunkList.add(new Chunk(playerPos.x + i - RENDER_DISTANCE / 2, playerPos.y + j - RENDER_DISTANCE / 2));
+                chunkList.add(new Chunk(playerPos.x + i - RENDER_DISTANCE, playerPos.y + j - RENDER_DISTANCE));
             }
         }
     }
@@ -25,5 +25,16 @@ public class ChunkManager {
         for (Chunk i : chunkList) {
             i.render(renderManager, camera);
         }
+    }
+
+    public static Chunk getChunk(int x, int z) {
+        for (Chunk chunk : chunkList) {
+            if (chunk.getX() == x && chunk.getZ() == z) {
+                return chunk;
+            }
+        }
+        Chunk newChunk = new Chunk(x, z);
+        chunkList.add(newChunk);
+        return newChunk;
     }
 }

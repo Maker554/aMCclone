@@ -4,6 +4,7 @@ import net.maker554.aMCclone.Client;
 import net.maker554.aMCclone.input.Mouse;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import renderEngine.text.TextManager;
 import renderEngine.utils.Consts;
 import renderEngine.utils.ILogic;
 
@@ -28,6 +29,7 @@ public class EngineManager {
         window.init();
         gameLogic.init();
         Mouse.init(window.getWindow());
+        TextManager.init();
     }
 
     public void start() throws Exception {
@@ -91,6 +93,7 @@ public class EngineManager {
 
     private void render() {
         gameLogic.render();
+        window.resetGLState();
         window.update();
     }
 

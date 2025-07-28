@@ -46,9 +46,9 @@ public class Camera {
             this.rotation.x = 90;
         this.rotation.y += y;
         this.rotation.z += z;
-        if (rotation.x > 360) rotation.x -= 360;
+
         if (rotation.y > 360) rotation.y -= 360;
-        if (rotation.z > 360) rotation.z -= 360;
+        if (rotation.y < 0) rotation.y += 360;
     }
 
     public Vector3f getPosition() {

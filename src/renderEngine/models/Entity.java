@@ -27,6 +27,10 @@ public class Entity {
         this.position.z = z;
     }
 
+    public void setPosition(Vector3f position) {
+        this.position = position;
+    }
+
     public void increaseRotation(float x, float y, float z) {
         this.rotation.x += x;
         this.rotation.y += y;

@@ -7,6 +7,9 @@ import renderEngine.models.Texture;
 public class Settings {
 
     public static final int CHUNK_SIZE = 16;
+    public static final int CHUNK_HEIGHT = 64;
+
+    public static final int REACH_RANGE = 6;
 
     public static void init() throws Exception{
 

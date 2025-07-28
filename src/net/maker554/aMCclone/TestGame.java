@@ -1,7 +1,11 @@
 package net.maker554.aMCclone;
 
+import net.maker554.aMCclone.collision.TerrainCollisionMap;
 import net.maker554.aMCclone.input.Mouse;
+import net.maker554.aMCclone.player.FacingEnum;
 import net.maker554.aMCclone.player.Player;
+import net.maker554.aMCclone.player.gui.debug.DebugManager;
+import net.maker554.aMCclone.terrain.Chunk;
 import net.maker554.aMCclone.terrain.ChunkManager;
 import net.maker554.aMCclone.terrain.TerrainGeneration;
 import net.maker554.aMCclone.input.InputHandler;
@@ -12,16 +16,19 @@ import org.joml.Vector2i;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
+import renderEngine.models.Entity;
+import renderEngine.text.TextManager;
 import renderEngine.utils.ILogic;
 import renderEngine.RenderManager;
 import renderEngine.WindowManager;
 import renderEngine.models.ObjectLoader;
 
+import static java.lang.Math.round;
 import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
 
 public class TestGame implements ILogic {
 
-    private final float PLAYER_MOVE_SPEED = 0.08f;
+    private final float PLAYER_MOVE_SPEED = 0.16f; // 0.08
     private final float CAMERA_SPEED = 0.3f;
 
     private final RenderManager renderManager;
@@ -32,6 +39,7 @@ public class TestGame implements ILogic {
     private Vector3f cameraInc;
 
     private boolean inInventory = false;
+    private boolean inDebug = false;
 
     public TestGame() {
         renderManager = new RenderManager();
@@ -51,6 +59,13 @@ public class TestGame implements ILogic {
 
         player = new Player();
         player.setPosition(new Vector3f(0, 8f, 0));
+
+        // debug
+        Vector3f pos = player.getPosition();
+
+        // initialize debug lines
+        for (int i = 0; i <= 9; i++)
+            DebugManager.setDebugLine("", i);
     }
 
     @Override
@@ -85,6 +100,9 @@ public class TestGame implements ILogic {
                 InputHandler.lockMouse();
             }
         }
+        if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_F3)) {
+            inDebug = !inDebug;
+        }
     }
 
     @Override
@@ -94,14 +112,32 @@ public class TestGame implements ILogic {
                 cameraInc.y * PLAYER_MOVE_SPEED,
                 cameraInc.z * PLAYER_MOVE_SPEED
         );
-
         if (!InputHandler.getIsMouseFree()) {
             Vector2f rotVec = Mouse.getDisplayVec();
             player.getCamera().moveRotation(rotVec.x * CAMERA_SPEED, rotVec.y * CAMERA_SPEED, 0);
             Mouse.resetDelta();
         }
-
         player.sync();
+
+        // block placing test
+
+        // debug updates
+        Vector3f pos = player.getPosition();
+        Vector3f rot = player.getCamera().getRotation();
+        String facingX = player.getFacingX() == FacingEnum.POSITIVE ? "positive" : "negative";
+        String facingZ = player.getFacingZ() == FacingEnum.POSITIVE ? "positive" : "negative";
+        Chunk currentChunk = ChunkManager.getChunk(player.getChunkPos().x, player.getChunkPos().y);
+        Vector2i chunkCords = currentChunk.getChunkCordsFromGlobalCords(round(pos.x), round(pos.z));
+
+        if (inDebug) {
+            DebugManager.updateDebugLine("player position X: " + round(pos.x) + " Y: " + round(pos.y) + " Z: " + round(pos.z), 1);
+            DebugManager.updateDebugLine("player position X: " + pos.x + " Y: " + pos.y + " Z: " + pos.z, 2);
+            DebugManager.updateDebugLine("player rotation X: " + round(rot.x) + " Y: " + round(rot.y), 3);
+            DebugManager.updateDebugLine("facing X:" + facingX + " Z: " + facingZ, 4);
+            DebugManager.updateDebugLine("player chunk position X: " + player.getChunkPos().x + " Z: " + player.getChunkPos().y, 6);
+            DebugManager.updateDebugLine("chunk cords X: " + chunkCords.x + " Y: " + chunkCords.y, 8);
+            DebugManager.updateDebugLine("current block: " + currentChunk.getBlock(chunkCords.x, round(pos.y), chunkCords.y), 9);
+        }
     }
 
     @Override
@@ -113,13 +149,33 @@ public class TestGame implements ILogic {
         windowManager.setClearColor(0.79f, 1.0f, 1.0f, 1.0f);
         renderManager.clear();
 
+        // world
         ChunkManager.render(renderManager, player.getCamera());
+        if (inDebug) {
+            renderManager.render(player.getRayCastDebugEntity(), player.getCamera());
+            for (Entity plane : TerrainCollisionMap.getDebugPlanesList()) {
+                renderManager.render(plane, player.getCamera());
+            }
+        }
 
+        // GUI
         if (inInventory)
             player.inventory.render(renderManager);
-        player.crossHair.render(renderManager);
+        if(!inDebug)
+            player.crossHair.render(renderManager);
         player.hand.render(renderManager);
         player.taskBar.render(renderManager);
+
+        TextManager.beginFrame();
+
+        //debug
+
+        if (inDebug) {
+            DebugManager.renderDebug(renderManager);
+        }
+        // text
+
+        TextManager.endFrame();
     }
 
     @Override

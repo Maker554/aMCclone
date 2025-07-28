@@ -4,14 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="added GUI elements and mouse input, basic hand and inventory with toolbar.&#10;&#10;Added ChunkManager.java to better handle Chunks in preparation for infinite terrain.&#10;&#10;Improved the perlin noise shapes for the terrain generation essentially making hills bigger.&#10;&#10;Fixed gl drawing freezing while resizing the window.">
+    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="completely added mouse camera movement to the game&#10;&#10;by holding ALT the mouse get free and stops controlling the camera until the key is released.&#10;Same thing happens while in inventory">
+      <change afterPath="$PROJECT_DIR$/resources/fonts/BrownieStencil.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/textures/debugBackground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/aa.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/TerrainCollisionMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/FacingEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/debug/DebugManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/debug/DebugText.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/RayCast.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/VectorMath.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/shapes/Line.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/shapes/Plane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderEngine/text/TextManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/Mouse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/ArrayManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/ArrayManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/Directions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/DirectionEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/Resources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderEngine/EngineManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/EngineManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderEngine/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/WindowManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/models/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/models/Entity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +42,8 @@
       <list>
         <option value="vs-template" />
         <option value="fs-template" />
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -58,6 +77,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.aa.executor&quot;: &quot;Run&quot;,
     &quot;Application.test.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -85,12 +105,13 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\MATTI\IdeaProjects\aMCclone\resources\textures" />
+      <recent name="C:\Users\MATTI\IdeaProjects\aMCclone\resources\fonts" />
       <recent name="C:\Users\Mattias\Documents\Programmazione\python\aMCclone\src\renderEngine" />
       <recent name="$PROJECT_DIR$/resources" />
       <recent name="$PROJECT_DIR$/src/resources" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Launcher">
     <configuration name="Launcher" type="Application" factoryName="Application">
       <envs>
         <env name="LD_BIND_NOW" value="1" />
@@ -102,6 +123,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="aa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="net.maker554.aMCclone.aa" />
+      <module name="aMCclone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.maker554.aMCclone.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.aa" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -155,7 +194,17 @@
       <workItem from="1751035848178" duration="7000" />
       <workItem from="1752534011076" duration="1392000" />
       <workItem from="1752569868926" duration="6061000" />
-      <workItem from="1752618667084" duration="11106000" />
+      <workItem from="1752618667084" duration="25915000" />
+      <workItem from="1752755911666" duration="213000" />
+      <workItem from="1752763541763" duration="4000000" />
+      <workItem from="1752852751274" duration="723000" />
+      <workItem from="1752870969183" duration="2663000" />
+      <workItem from="1752936982788" duration="6178000" />
+      <workItem from="1753184653641" duration="5472000" />
+      <workItem from="1753296541249" duration="61000" />
+      <workItem from="1753297372026" duration="5000" />
+      <workItem from="1753656004489" duration="5955000" />
+      <workItem from="1753663032007" duration="1083000" />
     </task>
     <task id="LOCAL-00001" summary="first commit&#10;render cubes">
       <option name="closed" value="true" />
@@ -181,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750768377011</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="completely added mouse camera movement to the game&#10;&#10;by holding ALT the mouse get free and stops controlling the camera until the key is released.&#10;Same thing happens while in inventory">
+      <option name="closed" value="true" />
+      <created>1752669412101</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1752669412101</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,7 +248,8 @@
     <MESSAGE value="first commit&#10;render cubes" />
     <MESSAGE value="first commit&#10;render chunks with only one mash, all the cube faces  datas are packed into one single entity.&#10;&#10;Hidden faces are not rendered for optimization.&#10;&#10;Created mappings for blockType and the actual textures.&#10;&#10;Chunks are rendered with their position as offset instead of all in the same place" />
     <MESSAGE value="added GUI elements and mouse input, basic hand and inventory with toolbar.&#10;&#10;Added ChunkManager.java to better handle Chunks in preparation for infinite terrain.&#10;&#10;Improved the perlin noise shapes for the terrain generation essentially making hills bigger.&#10;&#10;Fixed gl drawing freezing while resizing the window." />
-    <option name="LAST_COMMIT_MESSAGE" value="added GUI elements and mouse input, basic hand and inventory with toolbar.&#10;&#10;Added ChunkManager.java to better handle Chunks in preparation for infinite terrain.&#10;&#10;Improved the perlin noise shapes for the terrain generation essentially making hills bigger.&#10;&#10;Fixed gl drawing freezing while resizing the window." />
+    <MESSAGE value="completely added mouse camera movement to the game&#10;&#10;by holding ALT the mouse get free and stops controlling the camera until the key is released.&#10;Same thing happens while in inventory" />
+    <option name="LAST_COMMIT_MESSAGE" value="completely added mouse camera movement to the game&#10;&#10;by holding ALT the mouse get free and stops controlling the camera until the key is released.&#10;Same thing happens while in inventory" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -10,6 +10,7 @@ public class Resources {
     public static Texture emptyTexture;
     public static Texture toolBarTexture;
     public static Texture croosHairTexture;
+    public static Texture debugBackgroundTexture;
 
     public static void init() throws Exception {
 
@@ -17,5 +18,6 @@ public class Resources {
         emptyTexture = new Texture(loader.loadTexture("empty.png"));
         toolBarTexture = new Texture(loader.loadTexture("toolbar.png"));
         croosHairTexture = new Texture(loader.loadTexture("crosshair.png"));
+        debugBackgroundTexture = new Texture(loader.loadTexture("debugBackground.png"));
     };
 }

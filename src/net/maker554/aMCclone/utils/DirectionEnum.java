@@ -1,6 +1,6 @@
 package net.maker554.aMCclone.utils;
 
-public enum Directions {
+public enum DirectionEnum {
 
     NORD,
     SUD,
