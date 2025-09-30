@@ -7,7 +7,10 @@ import net.maker554.aMCclone.player.gui.CrossHair;
 import net.maker554.aMCclone.player.gui.Hand;
 import net.maker554.aMCclone.player.gui.Inventory;
 import net.maker554.aMCclone.player.gui.ToolBar;
+import net.maker554.aMCclone.terrain.ChunkManager;
 import net.maker554.aMCclone.utils.RayCast;
+import net.maker554.aMCclone.utils.VectorMath;
+import net.maker554.aMCclone.utils.shapes.Plane;
 import org.joml.Vector2i;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
@@ -86,8 +89,11 @@ public class Player {
         TerrainCollisionMap.calculateMap(new Vector3f().set(position));
     }
 
-    public void PlaceBlock() {
+    public void breakBlock() {
+        Plane collisionFace = rayCast.getLine().getCollidingFace();
+        Vector3f blockPos = new Vector3f().set(collisionFace.getPosVec()).add(new Vector3f().set(collisionFace.getNormal()));
 
+        ChunkManager.setBlock(new Vector3i().set(Math.round(blockPos.x), Math.round(blockPos.y), Math.round(blockPos.z)), (byte) 5);
     }
 
     public Vector3f getPosition() {

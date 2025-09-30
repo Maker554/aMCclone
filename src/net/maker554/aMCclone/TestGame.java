@@ -103,6 +103,9 @@ public class TestGame implements ILogic {
         if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_F3)) {
             inDebug = !inDebug;
         }
+
+        if (Mouse.isLeftButtonPress())
+            player.breakBlock();
     }
 
     @Override

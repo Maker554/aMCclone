@@ -33,4 +33,8 @@ public class RayCast {
     public Vector3f getVector() {
         return vector;
     }
+
+    public Line getLine() {
+        return line;
+    }
 }

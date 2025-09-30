@@ -1,11 +1,15 @@
 package net.maker554.aMCclone.terrain;
 
+import net.maker554.aMCclone.Settings;
 import org.joml.Vector2i;
+import org.joml.Vector3i;
 import renderEngine.Camera;
 import renderEngine.RenderManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Math.round;
 
 public class ChunkManager {
 
@@ -36,5 +40,11 @@ public class ChunkManager {
         Chunk newChunk = new Chunk(x, z);
         chunkList.add(newChunk);
         return newChunk;
+    }
+
+    public static void setBlock(Vector3i pos, byte index) {
+        Chunk chunk = getChunk((int) Math.floor((double) pos.x / Settings.CHUNK_SIZE), (int) Math.floor((double) pos.z / Settings.CHUNK_SIZE));
+        Vector2i chunkCords = chunk.getChunkCordsFromGlobalCords(pos.x, pos.z);
+        chunk.setBlock(chunkCords.x, pos.y, chunkCords.y, index);
     }
 }

@@ -47,23 +47,50 @@ public class TerrainCollisionMap {
                             // if near faces are air
                             if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.UP) == 0) {
 
-                                Vector3f planePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.UP).mul(0.55f));
+                                Vector3f planePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.UP).mul(0.5f));
                                 planesList.add(new Plane(planePos, DirectionEnum.DOWN));
 
                                 //debug
+                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.UP).mul(0.55f));
                                 Square square = new Square(1, 1);
                                 Model model = square.getModel();
-                                debugPlanesList.add(new Entity(model, planePos, new Vector3f(90, 90, 0), 1f));
+                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(90, 90, 0), 1f));
                             }
 
-                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.DOWN) != 0 || true) {
-                                planesList.add(new Plane(new Vector3f(curX, curY, curZ), DirectionEnum.UP));
+                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.DOWN) == 0) {
+
+                                Vector3f planePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.DOWN).mul(0.5f));
+                                planesList.add(new Plane(planePos, DirectionEnum.UP));
 
                                 //debug
+                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.DOWN).mul(0.55f));
                                 Square square = new Square(1, 1);
                                 Model model = square.getModel();
+                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(90, 90, 0), 1f));
+                            }
 
-                                //debugPlanesList.add(new Entity(model, new Vector3f(curX, curY, curZ), new Vector3f(90, 90, 0), 1f));
+                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.WEST) == 0) {
+
+                                Vector3f planePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.WEST).mul(0.5f));
+                                planesList.add(new Plane(planePos, DirectionEnum.EST));
+
+                                //debug
+                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.WEST).mul(0.55f));
+                                Square square = new Square(1, 1);
+                                Model model = square.getModel();
+                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 90, 0), 1f));
+                            }
+
+                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.EST) == 0) {
+
+                                Vector3f planePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.EST).mul(0.5f));
+                                planesList.add(new Plane(planePos, DirectionEnum.WEST));
+
+                                //debug
+                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.EST).mul(0.55f));
+                                Square square = new Square(1, 1);
+                                Model model = square.getModel();
+                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 90, 0), 1f));
                             }
                         }
                     }
@@ -74,5 +101,9 @@ public class TerrainCollisionMap {
 
     public static List<Entity> getDebugPlanesList() {
         return debugPlanesList;
+    }
+
+    public static List<Plane> getPlanesList() {
+        return planesList;
     }
 }

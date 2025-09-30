@@ -1,5 +1,6 @@
 package net.maker554.aMCclone.utils.shapes;
 
+import net.maker554.aMCclone.collision.TerrainCollisionMap;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
 
@@ -41,9 +42,14 @@ public class Line {
         Vector3f intP = new Vector3f().set(posVec).add(new Vector3f().set(direction).mul(t));
 
         // check distance between plane center and intersection point
-        float distance = intP.distance(planePos);
-        if (distance <= 0.5f)
-            return true;
-        return false;
+        return Math.abs(intP.x - planePos.x) <= 0.5f && Math.abs(intP.y - planePos.y) <= 0.5f && Math.abs(intP.z - planePos.z) <= 0.5f;
+    }
+
+    public Plane getCollidingFace() {
+        for (Plane plane : TerrainCollisionMap.getPlanesList()) {
+            if (checkCollision(plane))
+                return plane;
+        }
+        return new Plane(new Vector3f(0, -1, 0), new Vector3i());
     }
 }
