@@ -38,6 +38,9 @@ public class ChunkManager {
         for (Chunk i : chunkList) {
             i.render(renderManager, camera);
         }
+        for (Chunk i : chunkList) {
+            i.renderGlass(renderManager, camera);
+        }
     }
 
     public static Chunk getChunk(int x, int z) {

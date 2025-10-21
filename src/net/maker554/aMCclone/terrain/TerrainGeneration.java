@@ -49,7 +49,14 @@ public class TerrainGeneration {
             for (int y = 0; y < Settings.CHUNK_HEIGHT; y++) {
                 for (int z = 0; z < Settings.CHUNK_SIZE; z++) {
                     float columnHeight = fractalNoise(new Vector2i(x + (chunk_x * Settings.CHUNK_SIZE), z + (chunk_z * Settings.CHUNK_SIZE))) - offset;
-                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) ((y < columnHeight) ? 1 : 0);
+
+                    if(y < columnHeight - 1) {
+                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 4;
+                    } else if (y < columnHeight) {
+                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 1;
+                    } else {
+                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 0;
+                    }
                 }
             }
         }

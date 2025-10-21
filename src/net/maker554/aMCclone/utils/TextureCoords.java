@@ -10,12 +10,12 @@ public class TextureCoords {
     public static void init() {
 
         textureMappings.put(1, new int[] {4, 1, 1, 1, 3, 1});  // grass block
-        textureMappings.put(2, new int[] {3, 4});              // diamond
-        textureMappings.put(3, new int[] {1, 2});              // cobble
-        textureMappings.put(4, new int[] {4, 5, 19, 3, 7, 8});
+        textureMappings.put(2, new int[] {3, 4});              // diamond block
+        textureMappings.put(3, new int[] {1, 2});              // cobblestone
+        textureMappings.put(4, textureMap(2, 1));       // stone block
         textureMappings.put(5, new int[] {14, 4, 1, 1, 1, 4});
         textureMappings.put(6, new int[] {8, 2, 9, 1, 16, 1});
-        textureMappings.put(7, new int[] {2, 4}); // glass
+        textureMappings.put(7, new int[] {2, 4});              // glass
         textureMappings.put(8, textureMap(1,2,3,4,5,6));
         textureMappings.put(9, textureMap(9, 6, 13, 2, 14, 2));
         textureMappings.put(10, textureMap(9,2));

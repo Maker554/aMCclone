@@ -21,10 +21,11 @@ public class Chunk {
     private static ObjectLoader loader;
 
     private Entity entity;
+    private Entity glassEntity;
 
     private final int x, z;
 
-    public Chunk(int x, int z) {
+    public Chunk(int x, int z) { // for generating new terrain
         loader = new ObjectLoader();
         this.x = x;
         this.z = z;
@@ -34,7 +35,7 @@ public class Chunk {
         updateChunkModel();
     }
 
-    public Chunk(int x, int z, byte[] data) {
+    public Chunk(int x, int z, byte[] data) { // for loading terrain
         loader = new ObjectLoader();
         this.x = x;
         this.z = z;
@@ -50,15 +51,24 @@ public class Chunk {
 
     private void updateChunkModel() {
         Model model = loader.loadModel(ArrayManager.generateChunkVertices(data), ArrayManager.generateChunkTextureCords(data), ArrayManager.generateChunkIndices(data));
+        Model glassModel = loader.loadModel(ArrayManager.generateChunkVerticesGlass(data), ArrayManager.generateChunkTextureCordsGlass(data), ArrayManager.generateChunkIndicesGlass(data));
         model.setTexture(Resources.terrainTexture);
+        glassModel.setTexture(Resources.terrainTexture);
 
         entity = new Entity(model, new Vector3f(x*Settings.CHUNK_SIZE,0,z*Settings.CHUNK_SIZE), new Vector3f(0, 0, 0), 1);
+        glassEntity = new Entity(glassModel, new Vector3f(x*Settings.CHUNK_SIZE,0,z*Settings.CHUNK_SIZE), new Vector3f(0, 0, 0), 1);
     }
 
     public void render(RenderManager renderManager, Camera camera) {
-
         if(entity != null)
             renderManager.render(entity, camera);
+        else
+            System.out.println("entity is null");
+    }
+
+    public void renderGlass(RenderManager renderManager, Camera camera) {
+        if(glassEntity != null)
+            renderManager.render(glassEntity, camera);
         else
             System.out.println("entity is null");
     }

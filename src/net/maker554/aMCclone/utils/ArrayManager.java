@@ -2,6 +2,7 @@ package net.maker554.aMCclone.utils;
 
 import net.maker554.aMCclone.Settings;
 import net.maker554.aMCclone.terrain.Chunk;
+import org.joml.Vector2i;
 import org.joml.Vector3i;
 
 public class ArrayManager {
@@ -110,6 +111,14 @@ public class ArrayManager {
                         }
                     }
                 }
+        return vertices;
+    }
+
+    public static float[] generateChunkVerticesGlass(byte[] chunkData) {
+        float[] vertices = new float[calculateFacesNumber(chunkData) * 12];  // vertices array created, the size is calculated with a function.
+        int arrayIndex = 0;
+
+        // glass is rendered after the terrain
         for(byte i = 0; i < Settings.CHUNK_SIZE; i++)
             for (byte j = 0; j < Settings.CHUNK_HEIGHT; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
@@ -284,7 +293,15 @@ public class ArrayManager {
                         }
                     }
                 }
+        return indices;
+    }
 
+    public static int[] generateChunkIndicesGlass(byte[] chunkData) {
+        int[] indices = new int[calculateFacesNumber(chunkData) * 6];
+        int arrayIndex = 0;
+        int offset = 0;
+
+        // glass is rendered after the terrain
         for(byte i = 0; i < Settings.CHUNK_SIZE; i++)
             for (byte j = 0; j < Settings.CHUNK_HEIGHT; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
@@ -402,6 +419,14 @@ public class ArrayManager {
                         offset += 8;
                     }
                 }
+        return textureCords;
+    }
+
+    public static float[] generateChunkTextureCordsGlass(byte[] chunkData) {
+        float[] textureCords = new float[calculateFacesNumber(chunkData) * 8];
+        int arrayIndex = 0;
+        int offset;
+        float[] sample;
 
         for(byte i = 0; i < Settings.CHUNK_SIZE; i++)
             for (byte j = 0; j < Settings.CHUNK_HEIGHT; j++)

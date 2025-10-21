@@ -123,9 +123,11 @@ public class Player {
             CollisionBox collisionBox = rayCast.getLine().getPointedBlock(position);
             if (collisionBox == null) return;
 
-            // place block in the candidate pos if it is air)
             Vector3i candidatePos = new Vector3i().set(collisionBox.blockPos).add(collisionBox.direction);
-            if (ChunkManager.getBlock(candidatePos) == 0) ChunkManager.setBlock(candidatePos, 7);
+            CollisionResult isIntoPlayer = entityCollision.isColliding(position, new Vector3f(), new CollisionBox(candidatePos)); // check the collision with player
+
+            // place block in the candidate pos if it is air and does not collide with the player)
+            if (ChunkManager.getBlock(candidatePos ) == 0 && !isIntoPlayer.overlapping) ChunkManager.setBlock(candidatePos, 7);
 
         } else blockBreakingCountDown--;
     }
