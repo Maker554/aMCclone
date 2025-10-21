@@ -1,13 +1,13 @@
 package net.maker554.aMCclone;
 
-import org.joml.Vector2i;
-
-import static java.lang.Math.floor;
-
 public class aa
 {
     public static void main(String[] args) {
 
-        System.out.println(23 % 16);
+        int a = 5;
+        int b = 8;
+
+        System.out.println(a);
+        System.out.println(b);
     }
 }

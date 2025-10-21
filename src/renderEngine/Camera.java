@@ -38,7 +38,7 @@ public class Camera {
 
     public void moveRotation(float x, float y, float z) {
         if (rotation.x + x <= 90)
-            if (rotation.x >= -90)
+            if (rotation.x + x >= -90)
                 this.rotation.x += x;
             else
                 this.rotation.x = -90;

@@ -45,8 +45,8 @@ public class Mouse {
         });
 
         GLFW.glfwSetMouseButtonCallback(window, (window1, button, action, mods) -> {
-            leftButtonPress = button == GLFW.GLFW_MOUSE_BUTTON_1 && action ==GLFW.GLFW_PRESS;
-            rightButtonPress = button == GLFW.GLFW_MOUSE_BUTTON_2 && action ==GLFW.GLFW_PRESS;
+            leftButtonPress = button == GLFW.GLFW_MOUSE_BUTTON_1 && action == GLFW.GLFW_PRESS;
+            rightButtonPress = button == GLFW.GLFW_MOUSE_BUTTON_2 && action == GLFW.GLFW_PRESS;
         });
 
     }

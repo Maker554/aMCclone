@@ -5,14 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="added block collision Map working on all chunks, it follows the given entity and has a circular shape&#10;&#10;In debug mode the collision map is shown whith the empty texure&#10;&#10;added method to Line to che for collision with a face;&#10;&#10;PROBLEM: the window takes long tame to close">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_3_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/CollisionResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/EntityCollision.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/save/SaveManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/shapes/CollisionBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lwjgl_release_3_3.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aMCclone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/aMCclone.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/Settings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/aa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/aa.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/TerrainCollisionMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/TerrainCollisionMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/input/Mouse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/debug/DebugManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/debug/DebugManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/RayCast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/RayCast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Type.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/shapes/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/shapes/Line.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/shapes/Plane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/EngineManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderEngine/EngineManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderEngine/utils/test.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,14 +59,14 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Maker554/aMCclone.git&quot;,
-    &quot;accountId&quot;: &quot;20fc6ceb-97c3-4bf9-8875-d45ff7d27823&quot;
+    &quot;accountId&quot;: &quot;25d3723a-a524-433e-a2f0-144d32989a68&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2owMOoQLc54HeEYZQhxiTOjpezd" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -68,7 +85,7 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/MATTI/javalib/lwjgl-release-3.3.6-custom&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mattias/javalib/lwjgl_3.3.6&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -127,8 +144,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.169" />
       </set>
     </attachedChunks>
   </component>
@@ -190,6 +207,15 @@
       <workItem from="1753667235193" duration="280000" />
       <workItem from="1753725964621" duration="3679000" />
       <workItem from="1757015952365" duration="18000" />
+      <workItem from="1759687478137" duration="1805000" />
+      <workItem from="1759737070345" duration="10000" />
+      <workItem from="1760693544031" duration="2292000" />
+      <workItem from="1760696266088" duration="18841000" />
+      <workItem from="1760778740492" duration="5583000" />
+      <workItem from="1760883659269" duration="2029000" />
+      <workItem from="1760890013051" duration="1768000" />
+      <workItem from="1760892183588" duration="1006000" />
+      <workItem from="1760955523866" duration="7781000" />
     </task>
     <task id="LOCAL-00001" summary="first commit&#10;render cubes">
       <option name="closed" value="true" />

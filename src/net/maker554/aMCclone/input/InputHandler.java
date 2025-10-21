@@ -12,6 +12,10 @@ public class InputHandler {
     private static final WindowManager windowManager = Client.getWindow();
     private static final HashMap<Integer, Boolean> keyDataDown = new HashMap<>();
     private static final HashMap<Integer, Boolean> keyDataUp = new HashMap<>();
+
+    private static boolean mouse1Down = false;
+    private static boolean mouse2Down = false;
+
     private static boolean isMouseFree;
     private static Vector2d positionHolder;
     private static boolean alting = false;
@@ -37,6 +41,28 @@ public class InputHandler {
             keyDataUp.put(keycode, false);
             return true;
         }
+        return false;
+    }
+
+    public static boolean isLeftMouseButtonPressedDown() {
+        // left button
+        if (Mouse.isLeftButtonPress() && !mouse1Down) {
+            mouse1Down = true;
+            return true;
+        }
+        if (!Mouse.isLeftButtonPress() && mouse1Down)
+            mouse1Down = false;
+        return false;
+    }
+
+    public static boolean isRightMouseButtonPressedDown() {
+        //right button
+        if (Mouse.isRightButtonPress() && !mouse2Down) {
+            mouse2Down = true;
+            return true;
+        }
+        if (!Mouse.isRightButtonPress() && mouse2Down)
+            mouse2Down = false;
         return false;
     }
 

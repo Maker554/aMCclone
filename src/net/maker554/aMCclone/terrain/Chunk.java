@@ -12,7 +12,7 @@ import renderEngine.models.Entity;
 import renderEngine.models.Model;
 import renderEngine.models.ObjectLoader;
 
-import java.util.Random;
+import java.io.Serializable;
 
 public class Chunk {
 
@@ -34,8 +34,17 @@ public class Chunk {
         updateChunkModel();
     }
 
-    private void generateChunk() {
+    public Chunk(int x, int z, byte[] data) {
+        loader = new ObjectLoader();
+        this.x = x;
+        this.z = z;
 
+        this.data = data;
+
+        updateChunkModel();
+    }
+
+    private void generateChunk() {
         data = TerrainGeneration.generateTerrain(x, z);
     }
 

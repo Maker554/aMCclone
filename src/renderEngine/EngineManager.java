@@ -102,8 +102,8 @@ public class EngineManager {
     }
 
     private void cleanUp() {
-        window.cleanUp();
         gameLogic.cleanUp();
+        window.cleanUp();
         errorCallback.free();
         GLFW.glfwTerminate();
     }

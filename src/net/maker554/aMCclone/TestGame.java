@@ -5,6 +5,7 @@ import net.maker554.aMCclone.input.Mouse;
 import net.maker554.aMCclone.player.FacingEnum;
 import net.maker554.aMCclone.player.Player;
 import net.maker554.aMCclone.player.gui.debug.DebugManager;
+import net.maker554.aMCclone.save.SaveManager;
 import net.maker554.aMCclone.terrain.Chunk;
 import net.maker554.aMCclone.terrain.ChunkManager;
 import net.maker554.aMCclone.terrain.TerrainGeneration;
@@ -55,13 +56,9 @@ public class TestGame implements ILogic {
         TextureCoords.init();
         TerrainGeneration.init();
 
-        ChunkManager.generate(new Vector2i(0, 0));
-
-        player = new Player();
-        player.setPosition(new Vector3f(0, 8f, 0));
-
-        // debug
-        Vector3f pos = player.getPosition();
+        // load data
+        player = SaveManager.loadPlayer();
+        ChunkManager.loadTerrain(player.getChunkPos());
 
         // initialize debug lines
         for (int i = 0; i <= 9; i++)
@@ -104,8 +101,13 @@ public class TestGame implements ILogic {
             inDebug = !inDebug;
         }
 
+        if(InputHandler.isLeftMouseButtonPressedDown() || InputHandler.isRightMouseButtonPressedDown()) player.resetBBcountDown();
+
         if (Mouse.isLeftButtonPress())
             player.breakBlock();
+
+        if (Mouse.isRightButtonPress())
+            player.placeBlock();
     }
 
     @Override
@@ -183,6 +185,8 @@ public class TestGame implements ILogic {
 
     @Override
     public void cleanUp() {
+        SaveManager.saveWorld(ChunkManager.getChunkList());
+        SaveManager.savePlayer(player);
         renderManager.cleanUp();
         loader.cleanUp();
     }

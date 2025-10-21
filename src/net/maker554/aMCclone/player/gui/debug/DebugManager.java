@@ -7,7 +7,7 @@ import renderEngine.text.TextManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DebugManager {
+public class  DebugManager {
 
     private static final float TEXT_SIZE = 25f;
 

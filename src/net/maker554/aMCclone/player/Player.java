@@ -2,6 +2,8 @@ package net.maker554.aMCclone.player;
 
 import net.maker554.aMCclone.Settings;
 import net.maker554.aMCclone.assets.Cube;
+import net.maker554.aMCclone.collision.CollisionResult;
+import net.maker554.aMCclone.collision.EntityCollision;
 import net.maker554.aMCclone.collision.TerrainCollisionMap;
 import net.maker554.aMCclone.player.gui.CrossHair;
 import net.maker554.aMCclone.player.gui.Hand;
@@ -9,8 +11,7 @@ import net.maker554.aMCclone.player.gui.Inventory;
 import net.maker554.aMCclone.player.gui.ToolBar;
 import net.maker554.aMCclone.terrain.ChunkManager;
 import net.maker554.aMCclone.utils.RayCast;
-import net.maker554.aMCclone.utils.VectorMath;
-import net.maker554.aMCclone.utils.shapes.Plane;
+import net.maker554.aMCclone.utils.shapes.CollisionBox;
 import org.joml.Vector2i;
 import org.joml.Vector3f;
 import org.joml.Vector3i;
@@ -23,6 +24,7 @@ public class Player {
     private  Vector3f position;
     private FacingEnum facingX;
     private FacingEnum facingZ;
+    private int blockBreakingCountDown;
 
     //GUI ELEMENTS
     public Hand hand;
@@ -33,10 +35,12 @@ public class Player {
     private final RayCast rayCast = new RayCast(5);
     private final Entity rayCastDebugEntity;
     private Vector3f lookingPoint;
+    private EntityCollision  entityCollision;
 
     public Player() {
         camera = new Camera();
         position = new Vector3f();
+        blockBreakingCountDown = 0;
 
         hand = new Hand();
         taskBar = new ToolBar();
@@ -46,19 +50,30 @@ public class Player {
         Cube cube = new Cube(0.3f, 0.3f, 0.3f);
         rayCastDebugEntity = new Entity(cube.getModel(), new Vector3f(), new Vector3f(), 1);
         lookingPoint = new Vector3f();
+        entityCollision = new EntityCollision(new CollisionBox(position, new Vector3f(0.8f, 1.8f, 0.8f)));
     }
 
     public void movePosition(float x, float y, float z) {
+
+        Vector3f moveVec = new Vector3f();
+
         if(z != 0) {
-            position.x += (float) Math.sin(Math.toRadians(camera.getRotation().y)) * -1.0f * z;
-            position.z += (float) Math.cos(Math.toRadians(camera.getRotation().y)) * z;
+            moveVec.x += (float) Math.sin(Math.toRadians(camera.getRotation().y)) * -1.0f * z;
+            moveVec.z += (float) Math.cos(Math.toRadians(camera.getRotation().y)) * z;
         }
         if(x != 0) {
-            position.x += (float) Math.sin(Math.toRadians(camera.getRotation().y - 90)) * -1.0f * x;
-            position.z += (float) Math.cos(Math.toRadians(camera.getRotation().y - 90)) * x;
+            moveVec.x += (float) Math.sin(Math.toRadians(camera.getRotation().y - 90)) * -1.0f * x;
+            moveVec.z += (float) Math.cos(Math.toRadians(camera.getRotation().y - 90)) * x;
         }
-        position.y += y;
-        camera.movePosition(x, y, z);
+        moveVec.y += y;
+
+        CollisionResult collisionResult = entityCollision.isColliding(position, moveVec, TerrainCollisionMap.getCollisionBoxList());
+
+        if (collisionResult.x) position.x += moveVec.x;
+        if (collisionResult.y) position.y += moveVec.y;
+        if (collisionResult.z) position.z += moveVec.z;
+
+        camera.setPosition(position);
     }
 
     public void sync() {
@@ -90,10 +105,29 @@ public class Player {
     }
 
     public void breakBlock() {
-        Plane collisionFace = rayCast.getLine().getCollidingFace();
-        Vector3f blockPos = new Vector3f().set(collisionFace.getPosVec()).add(new Vector3f().set(collisionFace.getNormal()));
+        if(blockBreakingCountDown <= 0) {
+            blockBreakingCountDown = Settings.BLOCK_BREAKING_COUNTDOWN;
 
-        ChunkManager.setBlock(new Vector3i().set(Math.round(blockPos.x), Math.round(blockPos.y), Math.round(blockPos.z)), (byte) 5);
+            CollisionBox collisionBox = rayCast.getLine().getPointedBlock(position);
+            if(collisionBox == null) return; // if no block is colliding with the ray cast then no block is broken
+
+            ChunkManager.setBlock(collisionBox.blockPos, 0);
+
+        } else blockBreakingCountDown--;
+    }
+
+    public void placeBlock() {
+        if(blockBreakingCountDown <= 0) {
+            blockBreakingCountDown = Settings.BLOCK_BREAKING_COUNTDOWN;
+
+            CollisionBox collisionBox = rayCast.getLine().getPointedBlock(position);
+            if (collisionBox == null) return;
+
+            // place block in the candidate pos if it is air)
+            Vector3i candidatePos = new Vector3i().set(collisionBox.blockPos).add(collisionBox.direction);
+            if (ChunkManager.getBlock(candidatePos) == 0) ChunkManager.setBlock(candidatePos, 7);
+
+        } else blockBreakingCountDown--;
     }
 
     public Vector3f getPosition() {
@@ -123,5 +157,9 @@ public class Player {
 
     public Vector2i getChunkPos() {
         return new Vector2i((int) Math.floor(position.x / Settings.CHUNK_SIZE), (int) Math.floor(position.z / Settings.CHUNK_SIZE));
+    }
+
+    public void resetBBcountDown() {
+        blockBreakingCountDown = 0;
     }
 }
