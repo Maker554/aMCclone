@@ -2,7 +2,6 @@ package net.maker554.aMCclone.utils;
 
 import net.maker554.aMCclone.Settings;
 import net.maker554.aMCclone.terrain.Chunk;
-import org.joml.Vector2i;
 import org.joml.Vector3i;
 
 public class ArrayManager {
@@ -19,7 +18,7 @@ public class ArrayManager {
 
                     // first every block not transparent
                     // then every transparent block
-                    if (chunkData[transformDataIndex(i, j, k)] != 0 && chunkData[transformDataIndex(i, j, k)] != 7) {
+                    if (chunkData[transformDataIndex(i, j, k)] != 0 && !isTransparent(chunkData[transformDataIndex(i, j, k)])) {
                         if (checkNearFace(chunkData, i, j, k, DirectionEnum.SUD)) {  // check if the near face is not air
                             vertices[arrayIndex++] = -0.5f + i;
                             vertices[arrayIndex++] = -0.5f + j;
@@ -114,7 +113,7 @@ public class ArrayManager {
         return vertices;
     }
 
-    public static float[] generateChunkVerticesGlass(byte[] chunkData) {
+    public static float[] generateChunkVerticesTransparent(byte[] chunkData) {
         float[] vertices = new float[calculateFacesNumber(chunkData) * 12];  // vertices array created, the size is calculated with a function.
         int arrayIndex = 0;
 
@@ -123,7 +122,7 @@ public class ArrayManager {
             for (byte j = 0; j < Settings.CHUNK_HEIGHT; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
 
-                    if (chunkData[transformDataIndex(i,j,k)] == 7) {
+                    if (isTransparent(chunkData[transformDataIndex(i, j, k)])) {
 
                         if (checkNearFace(chunkData, i, j, k, DirectionEnum.SUD)) {  // check if the near face is not air
                             vertices[arrayIndex++] = -0.5f + i;
@@ -229,7 +228,7 @@ public class ArrayManager {
             for (byte j = 0; j < Settings.CHUNK_HEIGHT; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
 
-                    if (chunkData[transformDataIndex(i, j, k)] != 0 && chunkData[transformDataIndex(i, j, k)] != 7) {
+                    if (chunkData[transformDataIndex(i, j, k)] != 0 && !isTransparent(chunkData[transformDataIndex(i, j, k)])) {
 
                         if (checkNearFace(chunkData, i, j, k, DirectionEnum.SUD)) {
                             indices[arrayIndex++] = offset;
@@ -296,7 +295,7 @@ public class ArrayManager {
         return indices;
     }
 
-    public static int[] generateChunkIndicesGlass(byte[] chunkData) {
+    public static int[] generateChunkIndicesTransparent(byte[] chunkData) {
         int[] indices = new int[calculateFacesNumber(chunkData) * 6];
         int arrayIndex = 0;
         int offset = 0;
@@ -306,7 +305,7 @@ public class ArrayManager {
             for (byte j = 0; j < Settings.CHUNK_HEIGHT; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
 
-                    if (chunkData[transformDataIndex(i, j, k)] == 7) {
+                    if (isTransparent(chunkData[transformDataIndex(i, j, k)])) {
 
                         if (checkNearFace(chunkData, i, j, k, DirectionEnum.SUD)) {
                             indices[arrayIndex++] = offset;
@@ -384,7 +383,7 @@ public class ArrayManager {
             for (byte j = 0; j < Settings.CHUNK_HEIGHT; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
 
-                    if (chunkData[transformDataIndex(i, j, k)] != 0 && chunkData[transformDataIndex(i, j, k)] != 7) {
+                    if (chunkData[transformDataIndex(i, j, k)] != 0 && !isTransparent(chunkData[transformDataIndex(i, j, k)])) {
                         offset = 0;
                         sample = TextureCoords.buildTextureCords(chunkData[transformDataIndex(i,j,k)]);
 
@@ -422,7 +421,7 @@ public class ArrayManager {
         return textureCords;
     }
 
-    public static float[] generateChunkTextureCordsGlass(byte[] chunkData) {
+    public static float[] generateChunkTextureCordsTransparent(byte[] chunkData) {
         float[] textureCords = new float[calculateFacesNumber(chunkData) * 8];
         int arrayIndex = 0;
         int offset;
@@ -432,7 +431,7 @@ public class ArrayManager {
             for (byte j = 0; j < Settings.CHUNK_HEIGHT; j++)
                 for (byte k = 0; k < Settings.CHUNK_SIZE; k++) {
 
-                    if (chunkData[transformDataIndex(i, j, k)] == 7) {
+                    if (isTransparent(chunkData[transformDataIndex(i, j, k)])) {
                         offset = 0;
                         sample = TextureCoords.buildTextureCords(chunkData[transformDataIndex(i,j,k)]);
 
@@ -495,6 +494,9 @@ public class ArrayManager {
         if (chunkData[transformDataIndex(x, y, z)] == 0)
             return false;
 
+        if (isTransparent(chunkData[transformDataIndex(x, y, z)])) // if it is transparent all faces get drawn
+            return true;
+
         byte checkX = x;
         byte checkY = y;
         byte checkZ = z;
@@ -529,10 +531,7 @@ public class ArrayManager {
         if (checkX >= Settings.CHUNK_SIZE || checkX < 0 || checkY >= Settings.CHUNK_HEIGHT || checkY < 0 || checkZ >= Settings.CHUNK_SIZE || checkZ < 0 )
             return true;
 
-        if (chunkData[transformDataIndex(checkX, checkY, checkZ)] == 7 && chunkData[transformDataIndex(x, y, z)] == 7)
-            return false;
-
-        return chunkData[transformDataIndex(checkX, checkY, checkZ)] == 0 || chunkData[transformDataIndex(checkX, checkY, checkZ)] == 7;
+        return chunkData[transformDataIndex(checkX, checkY, checkZ)] == 0 || isTransparent(chunkData[transformDataIndex(checkX, checkY, checkZ)]);
     }
 
     public static int getNearFace(Chunk chunk, int x, int y, int z, DirectionEnum direction) {
@@ -547,5 +546,13 @@ public class ArrayManager {
 
     public static int transformDataIndex(byte x, byte y, byte z) {
         return (x* Settings.CHUNK_HEIGHT + y)*Settings.CHUNK_SIZE + z;
+    }
+
+    public static boolean isTransparent(byte id) {
+        for (int i : TextureCoords.transparentBlockIds) {
+            if (i == (int) id)
+                return true;
+        }
+        return false;
     }
 }

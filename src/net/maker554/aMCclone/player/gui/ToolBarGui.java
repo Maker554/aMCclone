@@ -4,9 +4,9 @@ import net.maker554.aMCclone.assets.Square;
 import net.maker554.aMCclone.utils.Resources;
 import renderEngine.models.Model;
 
-public class ToolBar extends GuiElement{
+public class ToolBarGui extends GuiElement{
 
-    public ToolBar() {
+    public ToolBarGui() {
 
         setPosition(0, -4.8f);
 

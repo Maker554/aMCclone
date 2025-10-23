@@ -5,10 +5,7 @@ import net.maker554.aMCclone.assets.Cube;
 import net.maker554.aMCclone.collision.CollisionResult;
 import net.maker554.aMCclone.collision.EntityCollision;
 import net.maker554.aMCclone.collision.TerrainCollisionMap;
-import net.maker554.aMCclone.player.gui.CrossHair;
-import net.maker554.aMCclone.player.gui.Hand;
-import net.maker554.aMCclone.player.gui.Inventory;
-import net.maker554.aMCclone.player.gui.ToolBar;
+import net.maker554.aMCclone.player.gui.*;
 import net.maker554.aMCclone.terrain.ChunkManager;
 import net.maker554.aMCclone.utils.RayCast;
 import net.maker554.aMCclone.utils.shapes.CollisionBox;
@@ -17,6 +14,9 @@ import org.joml.Vector3f;
 import org.joml.Vector3i;
 import renderEngine.Camera;
 import renderEngine.models.Entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
@@ -28,14 +28,18 @@ public class Player {
 
     //GUI ELEMENTS
     public Hand hand;
-    public ToolBar taskBar;
+    public ToolBarGui toolBarGui;
     public CrossHair crossHair;
-    public Inventory inventory;
+    public InventoryGui inventory;
+    public List<InventoryBlock> inventoryBlocks;
+    public HandBlock handBlock;
 
     private final RayCast rayCast = new RayCast(5);
     private final Entity rayCastDebugEntity;
-    private Vector3f lookingPoint;
-    private EntityCollision  entityCollision;
+    private final Vector3f lookingPoint;
+    private final EntityCollision  entityCollision;
+
+    private final ToolBar toolBar;
 
     public Player() {
         camera = new Camera();
@@ -43,9 +47,18 @@ public class Player {
         blockBreakingCountDown = 0;
 
         hand = new Hand();
-        taskBar = new ToolBar();
+        toolBarGui = new ToolBarGui();
         crossHair = new CrossHair();
-        inventory = new Inventory();
+        inventory = new InventoryGui();
+        inventoryBlocks = new ArrayList<>();
+
+        toolBar = new ToolBar();
+
+        for (int i=0; i < 9; i++) {
+            inventoryBlocks.add(new InventoryBlock(toolBar.getId(i)));
+            inventoryBlocks.get(i).setPosition(-3.66f +(1.114f*i), -4.83f);
+        }
+        handBlock = new HandBlock(toolBar.getId());
 
         Cube cube = new Cube(0.3f, 0.3f, 0.3f);
         rayCastDebugEntity = new Entity(cube.getModel(), new Vector3f(), new Vector3f(), 1);
@@ -127,9 +140,14 @@ public class Player {
             CollisionResult isIntoPlayer = entityCollision.isColliding(position, new Vector3f(), new CollisionBox(candidatePos)); // check the collision with player
 
             // place block in the candidate pos if it is air and does not collide with the player)
-            if (ChunkManager.getBlock(candidatePos ) == 0 && !isIntoPlayer.overlapping) ChunkManager.setBlock(candidatePos, 7);
+            if (ChunkManager.getBlock(candidatePos ) == 0 && !isIntoPlayer.overlapping) ChunkManager.setBlock(candidatePos, toolBar.getId());
 
         } else blockBreakingCountDown--;
+    }
+
+    public void setCurrentItem(int slot) {
+        toolBar.changeSlot(slot);
+        handBlock = new HandBlock(toolBar.getId());
     }
 
     public Vector3f getPosition() {

@@ -29,6 +29,12 @@ public class GuiElement {
 
     protected void setPosition(float x, float y) {
         position = new Vector3f(x*DIST/10, y*DIST/10, -DIST);
+        if (entity != null) {
+            entity.setPosition(position);
+        }
+    }
+    protected void setRotation(float x, float y, float z) {
+        rotation = new Vector3f(x, y, z);
     }
 
     protected Vector3f getPosition() {return position;}

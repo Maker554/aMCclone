@@ -4,13 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="Player does no longer remain stuck when overlapping with blocks.&#10;&#10;Player now cant place blocks colliding with himself.">
+    <list default="true" id="bc4c0042-e5d5-4f8c-b2c4-12d8c533cabb" name="Changes" comment="Player does no longer remain stuck when overlapping with blocks.&#10;&#10;Player now cant place blocks colliding with himself.&#10;&#10;Fixed glass rendering where chunk where not visible tru it.&#10;&#10;Changed terrain generation to use stone and put grass only as the last layer">
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/assets/CubeFromAtlas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/assets/SquareFromAtlas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/ToolBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/HandBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/InventoryBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/CollisionResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/CollisionResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/EntityCollision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/EntityCollision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/TestGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/assets/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/assets/Square.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/TerrainCollisionMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/collision/TerrainCollisionMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/GuiElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/GuiElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/InventoryGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/ToolBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/player/gui/ToolBarGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/save/SaveManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/save/SaveManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/Chunk.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/ChunkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/PerlinNoise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/PerlinNoise.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/terrain/TerrainGeneration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/ArrayManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/ArrayManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/TextureCoords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/maker554/aMCclone/utils/TextureCoords.java" afterDir="false" />
@@ -203,7 +213,13 @@
       <workItem from="1761030955106" duration="2200000" />
       <workItem from="1761033614113" duration="168000" />
       <workItem from="1761034059514" duration="979000" />
-      <workItem from="1761036072872" duration="1078000" />
+      <workItem from="1761036072872" duration="6196000" />
+      <workItem from="1761129993664" duration="311000" />
+      <workItem from="1761130765632" duration="88000" />
+      <workItem from="1761131002183" duration="3795000" />
+      <workItem from="1761154529749" duration="369000" />
+      <workItem from="1761201534882" duration="5138000" />
+      <workItem from="1761210922905" duration="210000" />
     </task>
     <task id="LOCAL-00001" summary="first commit&#10;render cubes">
       <option name="closed" value="true" />
@@ -261,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761031207341</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Player does no longer remain stuck when overlapping with blocks.&#10;&#10;Player now cant place blocks colliding with himself.&#10;&#10;Fixed glass rendering where chunk where not visible tru it.&#10;&#10;Changed terrain generation to use stone and put grass only as the last layer">
+      <option name="closed" value="true" />
+      <created>1761037155820</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1761037155820</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,7 +298,8 @@
     <MESSAGE value="completely added mouse camera movement to the game&#10;&#10;by holding ALT the mouse get free and stops controlling the camera until the key is released.&#10;Same thing happens while in inventory" />
     <MESSAGE value="added block collision Map working on all chunks, it follows the given entity and has a circular shape&#10;&#10;In debug mode the collision map is shown whith the empty texure&#10;&#10;added method to Line to che for collision with a face;&#10;&#10;PROBLEM: the window takes long tame to close" />
     <MESSAGE value="Added collision for the ray cast, player can now place and destroy blocks. &#10;&#10;Added collision between player body and the map.&#10;&#10;Added saving for the player position and rotation and the world when closing the game" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added collision for the ray cast, player can now place and destroy blocks. &#10;&#10;Added collision between player body and the map.&#10;&#10;Added saving for the player position and rotation and the world when closing the game" />
+    <MESSAGE value="Player does no longer remain stuck when overlapping with blocks.&#10;&#10;Player now cant place blocks colliding with himself.&#10;&#10;Fixed glass rendering where chunk where not visible tru it.&#10;&#10;Changed terrain generation to use stone and put grass only as the last layer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Player does no longer remain stuck when overlapping with blocks.&#10;&#10;Player now cant place blocks colliding with himself.&#10;&#10;Fixed glass rendering where chunk where not visible tru it.&#10;&#10;Changed terrain generation to use stone and put grass only as the last layer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

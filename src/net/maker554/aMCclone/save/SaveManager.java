@@ -11,6 +11,8 @@ import java.util.List;
 
 public class SaveManager {
 
+    private static int counter = 0;
+
     public static void saveWorld(List<Chunk> chunkList) {
 
         List<byte[]> chunkDataList = new ArrayList<>();
@@ -77,7 +79,34 @@ public class SaveManager {
         if (!pack.isEmpty()) {
             player.setPosition(pack.getFirst());
             player.getCamera().setRotation(pack.get(1));
+        } else {
+            player.movePosition(0, 60, 0);
         }
         return player;
+    }
+
+    public static void saveData(long seed) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.dat"))) {
+            out.writeObject(seed);
+        } catch (IOException e) {e.printStackTrace();}
+    }
+
+    public static long loadData() {
+        long seed = 0;
+
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.dat"))) {
+             seed = (long) in.readObject();
+        } catch (IOException | ClassNotFoundException _) {}
+
+        return seed;
+    }
+
+    public static void autoSave(Player player, List<Chunk> chunkList) {
+        counter++;
+        if (counter > 2000) {
+            counter = 0;
+            saveWorld(chunkList);
+            savePlayer(player);
+        }
     }
 }

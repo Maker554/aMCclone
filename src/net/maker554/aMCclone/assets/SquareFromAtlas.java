@@ -1,23 +1,25 @@
 package net.maker554.aMCclone.assets;
 
 import net.maker554.aMCclone.utils.Resources;
+import net.maker554.aMCclone.utils.TextureCoords;
+import renderEngine.models.Model;
 
-public class Square extends Shape{
+public class SquareFromAtlas extends Shape {
 
     private final float height;
     private final float width;
 
-    public Square(float height, float width) {
+    public SquareFromAtlas(float height, float width, int blockId) {
         this.height = height;
         this.width = width;
 
-        construct();
+        construct(blockId);
 
         model = loader.loadModel(vertices, textureCoords, indices);
-        model.setTexture(Resources.emptyTexture);
+        model.setTexture(Resources.terrainTexture);
     }
 
-    private void construct() {
+    private void construct(int blockId) {
 
         float y = height / 2;
         float z = width / 2;
@@ -38,20 +40,7 @@ public class Square extends Shape{
                 x, -y,  z,   // 15
         };
 
-        textureCoords = new float[] {
-
-                // Left face
-                1.0f, 0.0f,
-                0.0f, 0.0f,
-                0.0f, 1.0f,
-                1.0f, 1.0f,
-
-                // Right face
-                0.0f, 0.0f,
-                1.0f, 0.0f,
-                1.0f, 1.0f,
-                0.0f, 1.0f,
-        };
+        textureCoords = TextureCoords.buildTextureCords(blockId);
 
         indices = new int[] {
                 0, 1, 2, 0, 2, 3,   // left

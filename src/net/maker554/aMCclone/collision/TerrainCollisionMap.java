@@ -21,14 +21,13 @@ import static java.lang.Math.round;
 
 public class TerrainCollisionMap {
 
-    private static final List<CollisionBox> collisionBoxList = new ArrayList<>();
-    private static final List<Entity> debugPlanesList = new ArrayList<>();
+    private static List<CollisionBox> collisionBoxList = new ArrayList<>();
+    private static List<Entity> debugPlanesList = new ArrayList<>();
 
 
     public static void calculateMap(Vector3f position) {
-
-        debugPlanesList.clear();
-        collisionBoxList.clear();
+        debugPlanesList  = new ArrayList<>();
+        collisionBoxList = new ArrayList<>();
 
         for(int i = -Settings.REACH_RANGE; i < Settings.REACH_RANGE; i++) {
             for(int j = -Settings.REACH_RANGE; j < Settings.REACH_RANGE; j++) {

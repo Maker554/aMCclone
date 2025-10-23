@@ -1,27 +1,34 @@
 package net.maker554.aMCclone.utils;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 public class TextureCoords {
 
     private static final Dictionary<Integer, int[]> textureMappings  = new Hashtable<>();
+    public static final List<Integer> transparentBlockIds = new ArrayList<>();
 
     public static void init() {
 
-        textureMappings.put(1, new int[] {4, 1, 1, 1, 3, 1});  // grass block
-        textureMappings.put(2, new int[] {3, 4});              // diamond block
-        textureMappings.put(3, new int[] {1, 2});              // cobblestone
-        textureMappings.put(4, textureMap(2, 1));       // stone block
-        textureMappings.put(5, new int[] {14, 4, 1, 1, 1, 4});
-        textureMappings.put(6, new int[] {8, 2, 9, 1, 16, 1});
-        textureMappings.put(7, new int[] {2, 4});              // glass
-        textureMappings.put(8, textureMap(1,2,3,4,5,6));
-        textureMappings.put(9, textureMap(9, 6, 13, 2, 14, 2));
-        textureMappings.put(10, textureMap(9,2));
+        textureMappings.put(1, new int[] {4, 1, 1, 1, 3, 1});                        // grass block
+        textureMappings.put(2, new int[] {3, 4});                                    // diamond block
+        textureMappings.put(3, new int[] {1, 2});                                    // cobblestone
+        textureMappings.put(4, textureMap(2, 1));                             // stone block
+        textureMappings.put(5, textureMap(3, 1));                             // dirt
+        textureMappings.put(6, textureMap(9, 2));                             // diamond
+        textureMappings.put(7, new int[] {2, 4});                                    // glass
+        textureMappings.put(8, textureMap(13, 4, 12, 3, 5, 1)); // crafting table
+        textureMappings.put(9, textureMap(5, 1));                             // planks
+        textureMappings.put(10, textureMap(5,2, 6, 2));                // log
+        textureMappings.put(11, textureMap(5, 4));                            // leaves
+
+        transparentBlockIds.add(7);
+        transparentBlockIds.add(11);
     }
 
-    public static float[] getTerrainTextureCords(int x, int y) {
+    private static float[] getTerrainTextureCords(int x, int y) {
         float y0 = 0.0625f * (y - 1); // 0
         float y1 = 0.0625f * y;       // 1
         float x0 = 0.0625f * (x - 1); // 0
@@ -60,7 +67,7 @@ public class TextureCoords {
         };
     }
 
-    public static float[] getTerrainTextureCords(int sideX, int sideY, int topX, int topY) {
+    private static float[] getTerrainTextureCords(int sideX, int sideY, int topX, int topY) {
         float sY0 = 0.0625f * (sideY - 1); // 0
         float sY1 = 0.0625f * sideY;       // 1
         float sX0 = 0.0625f * (sideX - 1); // 0
@@ -104,7 +111,7 @@ public class TextureCoords {
         };
     }
 
-    public static float[] getTerrainTextureCords(int sideX, int sideY, int topX, int topY, int bottomX, int bottomY) {
+    private static float[] getTerrainTextureCords(int sideX, int sideY, int topX, int topY, int bottomX, int bottomY) {
         float sY0 = 0.0625f * (sideY - 1); // 0
         float sY1 = 0.0625f * sideY;       // 1
         float sX0 = 0.0625f * (sideX - 1); // 0
@@ -171,15 +178,15 @@ public class TextureCoords {
         return  textureCords;
     }
 
-    public static int[] textureMap(int sX, int sY) {
+    private static int[] textureMap(int sX, int sY) {
         return new int[]{sX, sY};
     }
 
-    public static int[] textureMap(int sX, int sY, int tX, int tY) {
+    private static int[] textureMap(int sX, int sY, int tX, int tY) {
         return new int[]{sX, sY, tX, tY};
     }
 
-    public static int[] textureMap(int sX, int sY, int tX, int tY, int bX, int bY) {
+    private static int[] textureMap(int sX, int sY, int tX, int tY, int bX, int bY) {
         return new int[]{sX, sY, tX, tY, bX, bY};
     }
 }

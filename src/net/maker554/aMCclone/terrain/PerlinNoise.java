@@ -74,16 +74,5 @@ public class PerlinNoise {
         );
         return (res + 1.0) / 2.0; // Normalize to 0.0 - 1.0
     }
-
-    public static void main(String[] args) {
-        PerlinNoise perlin = new PerlinNoise(42); // Seed for reproducibility
-        for (int y = 0; y < 10; y++) {
-            for (int x = 0; x < 10; x++) {
-                double value = perlin.noise(x * 0.1, y * 0.1); // Scale for smoothness
-                System.out.printf("%.2f ", value);
-            }
-            System.out.println();
-        }
-    }
 }
 

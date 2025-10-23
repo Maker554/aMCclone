@@ -1,6 +1,7 @@
 package net.maker554.aMCclone.terrain;
 
 import net.maker554.aMCclone.Settings;
+import net.maker554.aMCclone.save.SaveManager;
 import net.maker554.aMCclone.utils.ArrayManager;
 import org.joml.Vector2i;
 
@@ -14,11 +15,16 @@ public class TerrainGeneration {
 
     private static PerlinNoise noise;
     private static float offset;
+    private static long seed;
 
     public static void init() {
-        // random seed using the time
-        noise = new PerlinNoise(System.currentTimeMillis());
-
+        // random seed loaded, if it is 0 (not created) it is set as the current time
+        seed = SaveManager.loadData();
+        if (seed == 0) {
+            seed = System.currentTimeMillis();
+            SaveManager.saveData(seed);
+        }
+        noise = new PerlinNoise(seed);
     }
 
     public static float fractalNoise(Vector2i cords) {
@@ -50,12 +56,14 @@ public class TerrainGeneration {
                 for (int z = 0; z < Settings.CHUNK_SIZE; z++) {
                     float columnHeight = fractalNoise(new Vector2i(x + (chunk_x * Settings.CHUNK_SIZE), z + (chunk_z * Settings.CHUNK_SIZE))) - offset;
 
-                    if(y < columnHeight - 1) {
-                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 4;
+                    if(y < columnHeight - 3) {
+                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 4; // stone
+                    } else if (y < columnHeight - 1) {
+                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 5; // dirt
                     } else if (y < columnHeight) {
-                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 1;
+                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 1; // grass
                     } else {
-                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 0;
+                        data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 0; // air
                     }
                 }
             }
@@ -64,5 +72,9 @@ public class TerrainGeneration {
         //data[ArrayManager.transformDataIndex(8, 8, 8)] = 2;
 
         return data;
+    }
+
+    public static long getSeed() {
+        return seed;
     }
 }

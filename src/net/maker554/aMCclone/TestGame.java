@@ -4,6 +4,7 @@ import net.maker554.aMCclone.collision.TerrainCollisionMap;
 import net.maker554.aMCclone.input.Mouse;
 import net.maker554.aMCclone.player.FacingEnum;
 import net.maker554.aMCclone.player.Player;
+import net.maker554.aMCclone.player.gui.InventoryBlock;
 import net.maker554.aMCclone.player.gui.debug.DebugManager;
 import net.maker554.aMCclone.save.SaveManager;
 import net.maker554.aMCclone.terrain.Chunk;
@@ -25,7 +26,7 @@ import renderEngine.WindowManager;
 import renderEngine.models.ObjectLoader;
 
 import static java.lang.Math.round;
-import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class TestGame implements ILogic {
 
@@ -61,7 +62,7 @@ public class TestGame implements ILogic {
         ChunkManager.loadTerrain(player.getChunkPos());
 
         // initialize debug lines
-        for (int i = 0; i <= 9; i++)
+        for (int i = 0; i <= 10; i++)
             DebugManager.setDebugLine("", i);
     }
 
@@ -69,6 +70,7 @@ public class TestGame implements ILogic {
     public void input() {
         cameraInc.set(0, 0, 0);
 
+        // movement
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_W))
             cameraInc.z += -1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_S))
@@ -81,12 +83,25 @@ public class TestGame implements ILogic {
             cameraInc.y += 1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT))
             cameraInc.y += -1;
+
+        // inventory
         if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_LEFT_ALT) && !InputHandler.getIsMouseFree()) {
             InputHandler.freeMouseAlt();
         }
         if(InputHandler.isKeyReleased(GLFW.GLFW_KEY_LEFT_ALT) && InputHandler.getIsMouseFree()) {
             InputHandler.lockMouseAlt();
         }
+
+        // toolbar
+        if(windowManager.isKeyPressed(GLFW_KEY_1)) player.setCurrentItem(0);
+        if(windowManager.isKeyPressed(GLFW_KEY_2)) player.setCurrentItem(1);
+        if(windowManager.isKeyPressed(GLFW_KEY_3)) player.setCurrentItem(2);
+        if(windowManager.isKeyPressed(GLFW_KEY_4)) player.setCurrentItem(3);
+        if(windowManager.isKeyPressed(GLFW_KEY_5)) player.setCurrentItem(4);
+        if(windowManager.isKeyPressed(GLFW_KEY_6)) player.setCurrentItem(5);
+        if(windowManager.isKeyPressed(GLFW_KEY_7)) player.setCurrentItem(6);
+        if(windowManager.isKeyPressed(GLFW_KEY_8)) player.setCurrentItem(7);
+        if(windowManager.isKeyPressed(GLFW_KEY_9)) player.setCurrentItem(8);
 
         if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_E)) {
             inInventory = !inInventory;
@@ -112,6 +127,8 @@ public class TestGame implements ILogic {
 
     @Override
     public void update() {
+        SaveManager.autoSave(player, ChunkManager.getChunkList());
+
         player.movePosition(
                 cameraInc.x * PLAYER_MOVE_SPEED,
                 cameraInc.y * PLAYER_MOVE_SPEED,
@@ -142,6 +159,7 @@ public class TestGame implements ILogic {
             DebugManager.updateDebugLine("player chunk position X: " + player.getChunkPos().x + " Z: " + player.getChunkPos().y, 6);
             DebugManager.updateDebugLine("chunk cords X: " + chunkCords.x + " Y: " + chunkCords.y, 8);
             DebugManager.updateDebugLine("current block: " + currentChunk.getBlock(chunkCords.x, round(pos.y), chunkCords.y), 9);
+            DebugManager.updateDebugLine("seed: " + TerrainGeneration.getSeed(), 10);
         }
     }
 
@@ -169,7 +187,12 @@ public class TestGame implements ILogic {
         if(!inDebug)
             player.crossHair.render(renderManager);
         player.hand.render(renderManager);
-        player.taskBar.render(renderManager);
+
+        for (InventoryBlock inventoryBlock : player.inventoryBlocks) {
+            inventoryBlock.render(renderManager);
+        }
+        player.toolBarGui.render(renderManager);
+        player.handBlock.render(renderManager);
 
         TextManager.beginFrame();
 

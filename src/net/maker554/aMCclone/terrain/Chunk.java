@@ -12,8 +12,6 @@ import renderEngine.models.Entity;
 import renderEngine.models.Model;
 import renderEngine.models.ObjectLoader;
 
-import java.io.Serializable;
-
 public class Chunk {
 
     private byte[] data;
@@ -51,7 +49,7 @@ public class Chunk {
 
     private void updateChunkModel() {
         Model model = loader.loadModel(ArrayManager.generateChunkVertices(data), ArrayManager.generateChunkTextureCords(data), ArrayManager.generateChunkIndices(data));
-        Model glassModel = loader.loadModel(ArrayManager.generateChunkVerticesGlass(data), ArrayManager.generateChunkTextureCordsGlass(data), ArrayManager.generateChunkIndicesGlass(data));
+        Model glassModel = loader.loadModel(ArrayManager.generateChunkVerticesTransparent(data), ArrayManager.generateChunkTextureCordsTransparent(data), ArrayManager.generateChunkIndicesTransparent(data));
         model.setTexture(Resources.terrainTexture);
         glassModel.setTexture(Resources.terrainTexture);
 
