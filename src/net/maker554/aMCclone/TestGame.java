@@ -30,15 +30,13 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class TestGame implements ILogic {
 
-    private final float PLAYER_MOVE_SPEED = 0.16f; // 0.08
-    private final float CAMERA_SPEED = 0.3f;
 
     private final RenderManager renderManager;
     private final ObjectLoader loader;
     private final WindowManager windowManager;
 
     private Player player;
-    private Vector3f cameraInc;
+    private final Vector3f cameraInc;
 
     private boolean inInventory = false;
     private boolean inDebug = false;
@@ -72,17 +70,17 @@ public class TestGame implements ILogic {
 
         // movement
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_W))
-            cameraInc.z += -1;
+            cameraInc.z -= 1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_S))
             cameraInc.z += 1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_A))
-            cameraInc.x += -1;
+            cameraInc.x -= 1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_D))
             cameraInc.x += 1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_SPACE))
             cameraInc.y += 1;
         if(windowManager.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT))
-            cameraInc.y += -1;
+            cameraInc.y -= 1;
 
         // inventory
         if(InputHandler.isKeyPressedDown(GLFW.GLFW_KEY_LEFT_ALT) && !InputHandler.getIsMouseFree()) {
@@ -130,13 +128,13 @@ public class TestGame implements ILogic {
         SaveManager.autoSave(player, ChunkManager.getChunkList());
 
         player.movePosition(
-                cameraInc.x * PLAYER_MOVE_SPEED,
-                cameraInc.y * PLAYER_MOVE_SPEED,
-                cameraInc.z * PLAYER_MOVE_SPEED
+                cameraInc.x * Settings.PLAYER_MOVE_SPEED,
+                cameraInc.y * Settings.PLAYER_MOVE_SPEED,
+                cameraInc.z * Settings.PLAYER_MOVE_SPEED
         );
         if (!InputHandler.getIsMouseFree()) {
             Vector2f rotVec = Mouse.getDisplayVec();
-            player.getCamera().moveRotation(rotVec.x * CAMERA_SPEED, rotVec.y * CAMERA_SPEED, 0);
+            player.getCamera().moveRotation(rotVec.x * Settings.CAMERA_SPEED, rotVec.y * Settings.CAMERA_SPEED, 0);
             Mouse.resetDelta();
         }
         player.sync();

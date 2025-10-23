@@ -2,7 +2,6 @@ package net.maker554.aMCclone.assets;
 
 import net.maker554.aMCclone.utils.Resources;
 import net.maker554.aMCclone.utils.TextureCoords;
-import renderEngine.models.Model;
 
 public class SquareFromAtlas extends Shape {
 

@@ -415,7 +415,6 @@ public class ArrayManager {
                         if (checkNearFace(chunkData, i, j, k, DirectionEnum.DOWN))
                             for (int count = 0; count < 8; count++)
                                 textureCords[arrayIndex++] = sample[offset + count];
-                        offset += 8;
                     }
                 }
         return textureCords;
@@ -463,7 +462,6 @@ public class ArrayManager {
                         if (checkNearFace(chunkData, i, j, k, DirectionEnum.DOWN))
                             for (int count = 0; count < 8; count++)
                                 textureCords[arrayIndex++] = sample[offset + count];
-                        offset += 8;
                     }
                 }
 
@@ -503,29 +501,12 @@ public class ArrayManager {
 
         switch (direction) {
 
-            case NORD -> {
-                checkZ++;
-                break;
-            }
-            case SUD -> {
-                checkZ--;
-                break;
-            }
-            case EST -> {
-                checkX++;
-                break;
-            }
-            case WEST -> {
-                checkX--;
-                break;
-            }
-            case UP -> {
-                checkY++;
-                break;
-            }
-            case DOWN -> {
-                checkY--;
-            }
+            case NORD -> checkZ++;
+            case SUD  -> checkZ--;
+            case EST  -> checkX++;
+            case WEST -> checkX--;
+            case UP   -> checkY++;
+            case DOWN -> checkY--;
         }
 
         if (checkX >= Settings.CHUNK_SIZE || checkX < 0 || checkY >= Settings.CHUNK_HEIGHT || checkY < 0 || checkZ >= Settings.CHUNK_SIZE || checkZ < 0 )

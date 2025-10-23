@@ -3,7 +3,6 @@ package net.maker554.aMCclone.save;
 import net.maker554.aMCclone.player.Player;
 import net.maker554.aMCclone.terrain.Chunk;
 import org.joml.Vector3f;
-import org.joml.Vector3i;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -25,11 +24,11 @@ public class SaveManager {
 
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("level.dat"))) {
             out.writeObject(chunkDataList);
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException _) {}
 
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("map.dat"))) {
             out.writeObject(chunkIndexList);
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException _) {}
     }
 
     public static List<Chunk> loadWorld() {
@@ -64,7 +63,7 @@ public class SaveManager {
 
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("player.dat"))) {
             out.writeObject(pack);
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException _) {}
     }
 
     public static Player loadPlayer() {
@@ -88,7 +87,7 @@ public class SaveManager {
     public static void saveData(long seed) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.dat"))) {
             out.writeObject(seed);
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException _) {}
     }
 
     public static long loadData() {

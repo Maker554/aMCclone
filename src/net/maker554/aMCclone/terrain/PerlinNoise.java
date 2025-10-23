@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class PerlinNoise {
 
-    private int[] permutation; // Permutation table for pseudo-random gradients
+    private final int[] permutation; // Permutation table for pseudo-random gradients
 
     public PerlinNoise(long seed) {
         permutation = new int[512]; // 512 for wrapping

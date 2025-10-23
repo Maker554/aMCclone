@@ -1,11 +1,9 @@
 package net.maker554.aMCclone.player.gui;
 
-import org.joml.Vector2f;
 import org.joml.Vector3f;
 import renderEngine.RenderManager;
 import renderEngine.models.Entity;
 import renderEngine.models.Model;
-import renderEngine.models.ObjectLoader;
 
 public class GuiElement {
 
@@ -13,7 +11,7 @@ public class GuiElement {
     private Vector3f position;
     private Entity entity;
 
-    private static float DIST = 0.05f;
+    private static final float DIST = 0.05f;
 
     public GuiElement() {
         setPosition(0,0);
@@ -36,8 +34,6 @@ public class GuiElement {
     protected void setRotation(float x, float y, float z) {
         rotation = new Vector3f(x, y, z);
     }
-
-    protected Vector3f getPosition() {return position;}
 
     protected void setEntity(Model model) {
         if (model == null)
