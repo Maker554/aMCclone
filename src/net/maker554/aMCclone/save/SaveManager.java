@@ -2,11 +2,20 @@ package net.maker554.aMCclone.save;
 
 import net.maker554.aMCclone.player.Player;
 import net.maker554.aMCclone.terrain.Chunk;
+import net.maker554.aMCclone.terrain.ChunkManager;
+import net.maker554.aMCclone.terrain.features.FeatureBlock;
+import net.maker554.aMCclone.terrain.features.UnaddedFeature;
+import org.joml.Vector2i;
 import org.joml.Vector3f;
+import org.joml.Vector3i;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class SaveManager {
 
@@ -16,41 +25,93 @@ public class SaveManager {
 
         List<byte[]> chunkDataList = new ArrayList<>();
         List<int[]> chunkIndexList = new ArrayList<>();
+        List<List<Vector3i>> unaddedFeatureDataPosList = new ArrayList<>();
+        List<List<Byte>> unaddedFeatureDataList = new ArrayList<>();
+        List<Vector2i> unaddedFeaureChunkPosList = new ArrayList<>();
+        List<Vector3i> unaddedFeatureLocalPosList = new ArrayList<>();
 
         for (Chunk chunk : chunkList) {
             chunkDataList.add(chunk.getData());
             chunkIndexList.add(new int[]{chunk.getX(), chunk.getZ()});
         }
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("level.dat"))) {
-            out.writeObject(chunkDataList);
-        } catch (IOException _) {}
+        // packing data of all features
+        for (UnaddedFeature unaddedFeature : ChunkManager.getUnaddedFeatures()) {
+            List<Vector3i> dataPosList = new ArrayList<>();
+            List<Byte> dataList = new ArrayList<>();
+            // packing data for a feature
+            for (FeatureBlock block : unaddedFeature.blocks) {
+                dataPosList.add(block.location);
+                dataList.add(block.id);
+            }
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("map.dat"))) {
-            out.writeObject(chunkIndexList);
+            // adding packed data off the feature to the list for all features
+            unaddedFeatureDataPosList.add(dataPosList);
+            unaddedFeatureDataList.add(dataList);
+            // adding rest of data for the specific feature
+            unaddedFeaureChunkPosList.add(unaddedFeature.chunkPos);
+            unaddedFeatureLocalPosList.add(unaddedFeature.getPosition());
+        }
+
+        List<Object> level = Arrays.asList(
+                chunkDataList,
+                chunkIndexList,
+                unaddedFeatureDataPosList,
+                unaddedFeatureDataList,
+                unaddedFeaureChunkPosList,
+                unaddedFeatureLocalPosList
+        );
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("level.dat"))) {
+            out.writeObject(level);
         } catch (IOException _) {}
     }
 
-    public static List<Chunk> loadWorld() {
+    public static ConcurrentHashMap<Vector2i, Chunk> loadWorldMap() {
+        ConcurrentHashMap<Vector2i, Chunk> chunkMap = new ConcurrentHashMap<>();
+        List<Object> level = new ArrayList<>();
 
-        List<Chunk> chunkList = new ArrayList<>();
-        List<byte[]>chunkDataList = new ArrayList<>();
-        List<int[]>chunkIndexList = new ArrayList<>();
-
+        // load chunks and cordinates
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("level.dat"))) {
-            chunkDataList = (List<byte[]>) in.readObject();
+            level = (List<Object>) in.readObject();
         } catch (IOException | ClassNotFoundException _) {}
 
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("map.dat"))) {
-            chunkIndexList = (List<int[]>) in.readObject();
-        } catch (IOException | ClassNotFoundException _) {}
+        if (level == null || level.size() < 6) return null;
 
+        List<byte[]> chunkDataList = (List<byte[]>) level.getFirst();
+        List<int[]> chunkIndexList = (List<int[]>) level.get(1);
+        List<List<Vector3i>> unaddedFeatureDataPosList = (List<List<Vector3i>>) level.get(2);
+        List<List<Byte>> unaddedFeatureDataList = (List<List<Byte>>) level.get(3);
+        List<Vector2i> unaddedFeaureChunkPosList = (List<Vector2i>) level.get(4);
+        List<Vector3i> unaddedFeatureLocalPosList = (List<Vector3i>) level.get(5);
+
+        // generate unaddedFeatures
+        ConcurrentLinkedDeque<UnaddedFeature> unaddedFeatures = new ConcurrentLinkedDeque<>();
+
+        for (int i = 0; i < unaddedFeaureChunkPosList.size(); i++) {
+
+            // create the blocklist with position and data
+            List<FeatureBlock> blocks = new ArrayList<>();
+            Iterator<Byte> iterator = unaddedFeatureDataList.get(i).iterator(); // iterator to cycle both dataPos and data in the same loop
+
+            for (Vector3i dataPos : unaddedFeatureDataPosList.get(i)) {
+                // add the block to the list
+                 blocks.add(new FeatureBlock(iterator.next(), dataPos));
+            }
+
+            unaddedFeatures.add(new UnaddedFeature(blocks, unaddedFeatureLocalPosList.get(i), unaddedFeaureChunkPosList.get(i)));
+        }
+
+        // set the loaded unadded features in the chunk manager
+        ChunkManager.setUnaddedFeatures(unaddedFeatures);
+
+        // crate chunkMap form loaded data
         if (!chunkDataList.isEmpty() && chunkIndexList.size() == chunkDataList.size()) {
             for (int i = 0; i < chunkDataList.size(); i++) {
                 int[] position = chunkIndexList.get(i);
-                chunkList.add(new Chunk(position[0], position[1], chunkDataList.get(i)));
+                chunkMap.put(new Vector2i(position[0], position[1]), new Chunk(position[0], position[1], chunkDataList.get(i)));
             }
-            return chunkList;
+            return chunkMap;
         }
         return null;
     }
@@ -79,7 +140,7 @@ public class SaveManager {
             player.setPosition(pack.getFirst());
             player.getCamera().setRotation(pack.get(1));
         } else {
-            player.movePosition(0, 60, 0);
+            player.movePosition(0, -10000, 0);
         }
         return player;
     }

@@ -73,7 +73,7 @@ public class Mouse {
     }
 
     public static Vector2d getCurrentPos() {
-        return currentPos;
+        return new Vector2d(currentPos.x ,currentPos.y);
     }
 
     public static void setPreviousPos(int x, int y) {

@@ -41,6 +41,7 @@ public class TerrainCollisionMap {
                         Vector2i chunkCords = new Vector2i((int) Math.floor((double) curX / Settings.CHUNK_SIZE), (int) Math.floor((double) curZ / Settings.CHUNK_SIZE));
 
                         Chunk chunk = ChunkManager.getChunk(chunkCords.x, chunkCords.y);
+                        if (chunk == null) return;
                         Vector2i chunkPos = chunk.getChunkCordsFromGlobalCords(curX, curZ);
                         // if the block is NOT air
                         if(chunk.getBlock(chunkPos.x, curY, chunkPos.y) != 0) {

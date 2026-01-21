@@ -16,7 +16,7 @@ public class Chunk {
 
     private byte[] data;
 
-    private static ObjectLoader loader;
+    private static ObjectLoader loader = new ObjectLoader();
 
     private Entity entity;
     private Entity glassEntity;
@@ -24,13 +24,16 @@ public class Chunk {
     private final int x, z;
 
     public Chunk(int x, int z) { // for generating new terrain
-        loader = new ObjectLoader();
         this.x = x;
         this.z = z;
 
         generateChunk();
+    }
 
-        updateChunkModel();
+    // creates an empty Chunk object
+    public Chunk() {
+        x = 0;
+        z = 0;
     }
 
     public Chunk(int x, int z, byte[] data) { // for loading terrain
@@ -40,16 +43,16 @@ public class Chunk {
 
         this.data = data;
 
-        updateChunkModel();
+        updateModel(buildMesh());
     }
 
     private void generateChunk() {
         data = TerrainGeneration.generateTerrain(x, z);
     }
 
-    private void updateChunkModel() {
-        Model model = loader.loadModel(ArrayManager.generateChunkVertices(data), ArrayManager.generateChunkTextureCords(data), ArrayManager.generateChunkIndices(data));
-        Model glassModel = loader.loadModel(ArrayManager.generateChunkVerticesTransparent(data), ArrayManager.generateChunkTextureCordsTransparent(data), ArrayManager.generateChunkIndicesTransparent(data));
+    public void updateModel(MeshData mesh) {
+        Model model = loader.loadModel(mesh.vertices, mesh.textureCoords, mesh.indices);
+        Model glassModel = loader.loadModel(mesh.verticesT, mesh.textureCoordsT, mesh.indicesT);
         model.setTexture(Resources.terrainTexture);
         glassModel.setTexture(Resources.terrainTexture);
 
@@ -57,18 +60,26 @@ public class Chunk {
         glassEntity = new Entity(glassModel, new Vector3f(x*Settings.CHUNK_SIZE,0,z*Settings.CHUNK_SIZE), new Vector3f(0, 0, 0), 1);
     }
 
+    // only generate the mesh without creating the model for rendering
+    public MeshData buildMesh() {
+        return new MeshData(
+                ArrayManager.generateChunkVertices(data),
+                ArrayManager.generateChunkTextureCords(data),
+                ArrayManager.generateChunkIndices(data),
+                ArrayManager.generateChunkVerticesTransparent(data),
+                ArrayManager.generateChunkTextureCordsTransparent(data),
+                ArrayManager.generateChunkIndicesTransparent(data)
+        );
+    }
+
     public void render(RenderManager renderManager, Camera camera) {
         if(entity != null)
             renderManager.render(entity, camera);
-        else
-            System.out.println("entity is null");
     }
 
     public void renderGlass(RenderManager renderManager, Camera camera) {
         if(glassEntity != null)
             renderManager.render(glassEntity, camera);
-        else
-            System.out.println("entity is null");
     }
 
     private Vector3f getGlobalCordsFromChunkCords(int inx, int iny, int inz) {
@@ -78,7 +89,7 @@ public class Chunk {
                 inz + this.z * Settings.CHUNK_SIZE
         );
     }
-    private Vector2i getGlobalCordsFromChunkCords(int inx, int inz) {
+    public Vector2i getGlobalCordsFromChunkCords(int inx, int inz) {
         return new Vector2i(
                 (inx + this.x * Settings.CHUNK_SIZE),
                 (inz + this.z * Settings.CHUNK_SIZE)
@@ -100,7 +111,25 @@ public class Chunk {
             return;
 
         data[ArrayManager.transformDataIndex(cordX, cordY, cordZ)] = index;
-        updateChunkModel();
+        updateModel(buildMesh());
+    }
+
+    public void setBlockUnloaded(int cordX, int cordY, int cordZ, byte index) {
+
+        if(checkIfCordsAreOutOfChunkSize(cordX, cordY, cordZ))
+            return;
+
+        data[ArrayManager.transformDataIndex(cordX, cordY, cordZ)] = index;
+    }
+
+    public void setBlockUnloadedNoOverride(int cordX, int cordY, int cordZ, byte index) {
+
+        if(checkIfCordsAreOutOfChunkSize(cordX, cordY, cordZ))
+            return;
+
+        if (getBlock(new Vector3i(cordX, cordY, cordZ)) != 0) return; // only replace blocks that are air
+
+        data[ArrayManager.transformDataIndex(cordX, cordY, cordZ)] = index;
     }
 
     public byte getBlock(int cordX, int cordY, int cordZ) {

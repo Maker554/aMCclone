@@ -25,6 +25,11 @@ public class ToolBar {
         return current_slot;
     }
 
+    public void modify(int id) {
+        itemsInToolBarIDs[current_slot] = id;
+        current_itemID = id;
+    }
+
     public int getId(int slot) {
         return itemsInToolBarIDs[slot];
     }

@@ -14,6 +14,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.IntBuffer;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class WindowManager {
 
@@ -30,12 +32,24 @@ public class WindowManager {
 
     private final Matrix4f projectionMatrix;
 
+    private static final Queue<Runnable> mainThreadTasks = new ConcurrentLinkedDeque<>();
+
     public WindowManager(String title, int width, int height, boolean vSync) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.vSync = vSync;
         projectionMatrix = new Matrix4f();
+    }
+
+    public static void runOnMainThread(Runnable task) {
+        mainThreadTasks.add(task);
+    }
+
+    public void processTasks() {
+        while (!mainThreadTasks.isEmpty()) {
+            mainThreadTasks.poll().run();
+        }
     }
 
     public void init() {
@@ -84,12 +98,10 @@ public class WindowManager {
             GLFW.glfwMaximizeWindow(window);
         else {
             GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-            GLFW.glfwSetWindowPos(window,
-                    (vidMode.width() - width) / 2,
-                    (vidMode.height() - height) / 2);
         }
 
         GLFW.glfwMakeContextCurrent(window);
+        GL.createCapabilities();
 
         // callbacks
         GLFWFramebufferSizeCallbackI framebuffer_size_callback = new GLFWFramebufferSizeCallbackI() {
@@ -107,10 +119,6 @@ public class WindowManager {
         if(isvSync())
             GLFW.glfwSwapInterval(1);
 
-        GLFW.glfwShowWindow(window);
-
-        GL.createCapabilities();
-
         GL11.glClearColor(0.4f, 0.7f, 1.0f, 1);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_STENCIL_TEST);
@@ -118,6 +126,8 @@ public class WindowManager {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glCullFace(GL11.GL_BACK);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        GLFW.glfwShowWindow(window);
     }
 
     public void update() {

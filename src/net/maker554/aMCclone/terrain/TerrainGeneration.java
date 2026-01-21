@@ -2,8 +2,12 @@ package net.maker554.aMCclone.terrain;
 
 import net.maker554.aMCclone.Settings;
 import net.maker554.aMCclone.save.SaveManager;
+import net.maker554.aMCclone.terrain.features.Feature;
+import net.maker554.aMCclone.terrain.features.FeatureBlock;
+import net.maker554.aMCclone.terrain.features.UnaddedFeature;
 import net.maker554.aMCclone.utils.ArrayManager;
 import org.joml.Vector2i;
+import org.joml.Vector3i;
 
 public class TerrainGeneration {
 
@@ -12,9 +16,9 @@ public class TerrainGeneration {
     private static final float GAIN = 0.80f;
 
     private static final float I_AMPLITUDE = 25;
+    private static final int CLIFF_OFFSET = 10;
 
     private static PerlinNoise noise;
-    private static float offset;
     private static long seed;
 
     public static void init() {
@@ -32,18 +36,24 @@ public class TerrainGeneration {
         float amplitude = I_AMPLITUDE;
         float frequency = 0.005f;
 
-        offset = 30;
+        float offset = 30f;
 
         // loop of octaves
         for(int i = 0; i < OCTAVES; i++) {
             value += amplitude * (float) noise.noise( cords.x * frequency, cords.y * frequency);
             amplitude *= GAIN;
             frequency *= LACUNARITY;
-
-            //offset += amplitude / 3;
         }
 
-        return value;
+        // cliffs generator
+        double selector = noise.noise(cords.x * 0.02 + 457689, cords.y * 0.02+ 457689);
+        if ( selector > 0.8) {
+            value += 7;
+        } else if (selector > 0.7) {
+            value += 4;
+        }
+
+        return value - offset;
     }
 
     public static byte[] generateTerrain(int chunk_x, int chunk_z) {
@@ -54,7 +64,7 @@ public class TerrainGeneration {
         for (int x = 0; x < Settings.CHUNK_SIZE; x++) {
             for (int y = 0; y < Settings.CHUNK_HEIGHT; y++) {
                 for (int z = 0; z < Settings.CHUNK_SIZE; z++) {
-                    float columnHeight = fractalNoise(new Vector2i(x + (chunk_x * Settings.CHUNK_SIZE), z + (chunk_z * Settings.CHUNK_SIZE))) - offset;
+                    float columnHeight = fractalNoise(new Vector2i(x + (chunk_x * Settings.CHUNK_SIZE), z + (chunk_z * Settings.CHUNK_SIZE)));
 
                     if(y < columnHeight - 3) {
                         data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 4; // stone
@@ -69,12 +79,16 @@ public class TerrainGeneration {
             }
         }
 
-        //data[ArrayManager.transformDataIndex(8, 8, 8)] = 2;
-
         return data;
     }
 
     public static long getSeed() {
         return seed;
+    }
+
+    public static void placeFeature(Feature feature, Chunk chunk) {
+        for(FeatureBlock block : feature.blocks) {
+            chunk.setBlockUnloadedNoOverride(block.location.x, block.location.y, block.location.z, block.id);
+        }
     }
 }

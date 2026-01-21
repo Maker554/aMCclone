@@ -3,6 +3,7 @@ package net.maker554.aMCclone;
 import net.maker554.aMCclone.collision.TerrainCollisionMap;
 import net.maker554.aMCclone.input.Mouse;
 import net.maker554.aMCclone.player.FacingEnum;
+import net.maker554.aMCclone.player.Inventory;
 import net.maker554.aMCclone.player.Player;
 import net.maker554.aMCclone.player.gui.InventoryBlock;
 import net.maker554.aMCclone.player.gui.debug.DebugManager;
@@ -16,6 +17,7 @@ import net.maker554.aMCclone.utils.TextureCoords;
 import org.joml.Vector2f;
 import org.joml.Vector2i;
 import org.joml.Vector3f;
+import org.joml.Vector3i;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import renderEngine.models.Entity;
@@ -58,6 +60,18 @@ public class TestGame implements ILogic {
         // load data
         player = SaveManager.loadPlayer();
         ChunkManager.loadTerrain(player.getChunkPos());
+
+        //fix player pos
+        if (player.getPosition().y == -10000) {
+            Vector3f pos = player.getPosition();
+            for (int i=0; i<Settings.CHUNK_HEIGHT; i++) {
+                // continue untill the block is not air
+                if (ChunkManager.getBlock(new Vector3i((int) Math.floor(pos.x), Settings.CHUNK_HEIGHT - i, (int) Math.floor(pos.z))) != 0) {
+                    player.setPosition(new Vector3f(0, Settings.CHUNK_HEIGHT - i + 2, 0));
+                    break;
+                }
+            }
+        }
 
         // initialize debug lines
         for (int i = 0; i <= 10; i++)
@@ -114,13 +128,18 @@ public class TestGame implements ILogic {
             inDebug = !inDebug;
         }
 
-        if(InputHandler.isLeftMouseButtonPressedDown() || InputHandler.isRightMouseButtonPressedDown()) player.resetBBcountDown();
+        if((InputHandler.isLeftMouseButtonPressedDown() || InputHandler.isRightMouseButtonPressedDown()) && !inInventory) player.resetBBcountDown();
 
         if (Mouse.isLeftButtonPress())
-            player.breakBlock();
+            if (inInventory) {
+                player.modifyToolBar();
+            } else {
+                player.breakBlock();
+            }
 
-        if (Mouse.isRightButtonPress())
+        if (Mouse.isRightButtonPress() && !inInventory) {
             player.placeBlock();
+        }
     }
 
     @Override
@@ -147,7 +166,10 @@ public class TestGame implements ILogic {
         String facingX = player.getFacingX() == FacingEnum.POSITIVE ? "positive" : "negative";
         String facingZ = player.getFacingZ() == FacingEnum.POSITIVE ? "positive" : "negative";
         Chunk currentChunk = ChunkManager.getChunk(player.getChunkPos().x, player.getChunkPos().y);
-        Vector2i chunkCords = currentChunk.getChunkCordsFromGlobalCords(round(pos.x), round(pos.z));
+
+        Vector2i chunkCords = new Vector2i(0, 0);
+        if (currentChunk != null) chunkCords = currentChunk.getChunkCordsFromGlobalCords(round(pos.x), round(pos.z));
+        if (currentChunk == null) currentChunk = new Chunk(0, 0);
 
         if (inDebug) {
             DebugManager.updateDebugLine("player position X: " + round(pos.x) + " Y: " + round(pos.y) + " Z: " + round(pos.z), 1);
@@ -163,6 +185,14 @@ public class TestGame implements ILogic {
 
     @Override
     public void render() {
+        if (player == null) {
+            try {
+                dummyInit();
+            } catch (Exception _) {}
+        }
+        // execute queued tasks in the window manager
+        windowManager.processTasks();
+
         if(windowManager.isResize()) {
             GL11.glViewport(0, 0, windowManager.getWidth(), windowManager.getHeight());
             windowManager.setResize(true);
@@ -180,8 +210,15 @@ public class TestGame implements ILogic {
         }
 
         // GUI
-        if (inInventory)
+        player.handBlock.render(renderManager);
+
+        if (inInventory) {
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
             player.inventory.render(renderManager);
+            Inventory.render(renderManager);
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+        }
+
         if(!inDebug)
             player.crossHair.render(renderManager);
         player.hand.render(renderManager);
@@ -190,7 +227,6 @@ public class TestGame implements ILogic {
             inventoryBlock.render(renderManager);
         }
         player.toolBarGui.render(renderManager);
-        player.handBlock.render(renderManager);
 
         TextManager.beginFrame();
 
@@ -202,6 +238,16 @@ public class TestGame implements ILogic {
         // text
 
         TextManager.endFrame();
+    }
+
+    public void dummyInit() throws Exception{
+        renderManager.init();
+        Resources.init();
+        TextureCoords.init();
+        TerrainGeneration.init();
+
+        // load data
+        player = new Player();
     }
 
     @Override

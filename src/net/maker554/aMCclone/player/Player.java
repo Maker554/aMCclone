@@ -53,6 +53,7 @@ public class Player {
         inventoryBlocks = new ArrayList<>();
 
         toolBar = new ToolBar();
+        Inventory.init();
 
         for (int i=0; i < 9; i++) {
             inventoryBlocks.add(new InventoryBlock(toolBar.getId(i)));
@@ -115,6 +116,9 @@ public class Player {
         // collision planes
 
         TerrainCollisionMap.calculateMap(new Vector3f().set(position));
+
+        // generate terrain
+        ChunkManager.generateTerrain(getChunkPos());
     }
 
     public void breakBlock() {
@@ -175,11 +179,26 @@ public class Player {
         return facingZ;
     }
 
+    public ToolBar getToolBar() {
+        return toolBar;
+    }
+
     public Vector2i getChunkPos() {
         return new Vector2i((int) Math.floor(position.x / Settings.CHUNK_SIZE), (int) Math.floor(position.z / Settings.CHUNK_SIZE));
     }
 
     public void resetBBcountDown() {
         blockBreakingCountDown = 0;
+    }
+
+    public void modifyToolBar() {
+        Inventory.selectBlock(toolBar);
+
+        inventoryBlocks = new ArrayList<>();
+        for (int i=0; i < 9; i++) {
+            inventoryBlocks.add(new InventoryBlock(toolBar.getId(i)));
+            inventoryBlocks.get(i).setPosition(-3.66f +(1.114f*i), -4.83f);
+        }
+        handBlock = new HandBlock(toolBar.getId());
     }
 }

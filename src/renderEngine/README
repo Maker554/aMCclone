@@ -38,5 +38,3 @@ private static TestGame game;
 
 In the engineManager class import the Client class
 import all the rest, now you can refactor all classes how you like
-
-

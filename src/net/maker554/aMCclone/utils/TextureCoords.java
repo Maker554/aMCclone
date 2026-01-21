@@ -1,13 +1,10 @@
 package net.maker554.aMCclone.utils;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 public class TextureCoords {
 
-    private static final Dictionary<Integer, int[]> textureMappings  = new Hashtable<>();
+    public static final Map<Integer, int[]> textureMappings  = new HashMap<>();
     public static final List<Integer> transparentBlockIds = new ArrayList<>();
 
     public static void init() {
@@ -23,6 +20,17 @@ public class TextureCoords {
         textureMappings.put(9, textureMap(5, 1));                             // planks
         textureMappings.put(10, textureMap(5,2, 6, 2));                // log
         textureMappings.put(11, textureMap(5, 4));                            // leaves
+        textureMappings.put(12, textureMap(8, 1));                            // bricks
+        textureMappings.put(13, textureMap(9, 1, 10, 1, 11, 1));// tnt
+        textureMappings.put(14, textureMap(3, 2));                            // sand
+        textureMappings.put(15, textureMap(4, 2));                            // gravel
+        textureMappings.put(16, textureMap(4, 3, 5, 1));               // bookshelf
+        textureMappings.put(17, textureMap(6, 3));                            // obsidian
+        textureMappings.put(18, textureMap(1, 4));                            // sponge
+
+        for (int i=1; i<=16; i++) {
+            textureMappings.put(18+ i, textureMap(i, 5));                        // all wool colors
+        }
 
         transparentBlockIds.add(7);
         transparentBlockIds.add(11);
