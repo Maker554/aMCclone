@@ -31,7 +31,7 @@ public class TerrainGeneration {
         noise = new PerlinNoise(seed);
     }
 
-    public static float fractalNoise(Vector2i cords) {
+    public static float fractalNoise(int x, int z) {
         float value = 0;
         float amplitude = I_AMPLITUDE;
         float frequency = 0.005f;
@@ -40,13 +40,13 @@ public class TerrainGeneration {
 
         // loop of octaves
         for(int i = 0; i < OCTAVES; i++) {
-            value += amplitude * (float) noise.noise( cords.x * frequency, cords.y * frequency);
+            value += amplitude * (float) noise.noise( x * frequency, z * frequency);
             amplitude *= GAIN;
             frequency *= LACUNARITY;
         }
 
         // cliffs generator
-        double selector = noise.noise(cords.x * 0.02 + 457689, cords.y * 0.02+ 457689);
+        double selector = noise.noise(x * 0.02 + 457689, z * 0.02+ 457689);
         if ( selector > 0.8) {
             value += 7;
         } else if (selector > 0.7) {
@@ -62,10 +62,12 @@ public class TerrainGeneration {
         
         // Loop through each column of the 3D array
         for (int x = 0; x < Settings.CHUNK_SIZE; x++) {
-            for (int y = 0; y < Settings.CHUNK_HEIGHT; y++) {
-                for (int z = 0; z < Settings.CHUNK_SIZE; z++) {
-                    float columnHeight = fractalNoise(new Vector2i(x + (chunk_x * Settings.CHUNK_SIZE), z + (chunk_z * Settings.CHUNK_SIZE)));
+            for (int z = 0; z < Settings.CHUNK_SIZE; z++) {
 
+                // column height is the same for all blocks with the same y value
+                float columnHeight = fractalNoise(x + (chunk_x * Settings.CHUNK_SIZE), z + (chunk_z * Settings.CHUNK_SIZE));
+
+                for (int y = 0; y < Settings.CHUNK_HEIGHT; y++) {
                     if(y < columnHeight - 3) {
                         data[ArrayManager.transformDataIndex(x, y, z)] = (byte) 4; // stone
                     } else if (y < columnHeight - 1) {

@@ -73,6 +73,9 @@ public class TestGame implements ILogic {
             }
         }
 
+        // generate intitial terrain based on render distance
+        ChunkManager.generateTerrain(player.getChunkPos());
+
         // initialize debug lines
         for (int i = 0; i <= 10; i++)
             DebugManager.setDebugLine("", i);
@@ -188,7 +191,9 @@ public class TestGame implements ILogic {
         if (player == null) {
             try {
                 dummyInit();
-            } catch (Exception _) {}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         // execute queued tasks in the window manager
         windowManager.processTasks();
@@ -203,6 +208,7 @@ public class TestGame implements ILogic {
         // world
         ChunkManager.render(renderManager, player.getCamera());
         if (inDebug) {
+            assert player != null;
             renderManager.render(player.getRayCastDebugEntity(), player.getCamera());
             for (Entity plane : TerrainCollisionMap.getDebugPlanesList()) {
                 renderManager.render(plane, player.getCamera());
@@ -248,6 +254,10 @@ public class TestGame implements ILogic {
 
         // load data
         player = new Player();
+    }
+
+    public boolean getDebugStatus() {
+        return inDebug;
     }
 
     @Override

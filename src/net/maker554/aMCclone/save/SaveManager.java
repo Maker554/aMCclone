@@ -140,7 +140,7 @@ public class SaveManager {
             player.setPosition(pack.getFirst());
             player.getCamera().setRotation(pack.get(1));
         } else {
-            player.movePosition(0, -10000, 0);
+            player.setPosition(new Vector3f(0, -10000, 0));
         }
         return player;
     }

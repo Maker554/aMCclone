@@ -25,6 +25,8 @@ public class Player {
     private FacingEnum facingX;
     private FacingEnum facingZ;
     private int blockBreakingCountDown;
+    private Vector2i chunkPos;
+    private Vector2i chunkPosOld;
 
     //GUI ELEMENTS
     public Hand hand;
@@ -44,6 +46,9 @@ public class Player {
     public Player() {
         camera = new Camera();
         position = new Vector3f();
+        chunkPos = new Vector2i();
+        getChunkPos(); // used to update chunk position
+        chunkPosOld = new Vector2i(chunkPos); // copy the chunk position
         blockBreakingCountDown = 0;
 
         hand = new Hand();
@@ -88,6 +93,16 @@ public class Player {
         if (collisionResult.z) position.z += moveVec.z;
 
         camera.setPosition(position);
+
+        // collision planes update
+        TerrainCollisionMap.calculateMap(new Vector3f().set(position));
+
+        if (chunkPosOld != getChunkPos()) { // check for difference and update chunkPos
+            // generate terrain
+            ChunkManager.generateTerrain(chunkPos);
+            // update old chunk position
+            chunkPosOld.set(chunkPos);
+        }
     }
 
     public void sync() {
@@ -112,13 +127,6 @@ public class Player {
         } else {
             facingZ = FacingEnum.POSITIVE;
         }
-
-        // collision planes
-
-        TerrainCollisionMap.calculateMap(new Vector3f().set(position));
-
-        // generate terrain
-        ChunkManager.generateTerrain(getChunkPos());
     }
 
     public void breakBlock() {
@@ -129,6 +137,8 @@ public class Player {
             if(collisionBox == null) return; // if no block is colliding with the ray cast then no block is broken
 
             ChunkManager.setBlock(collisionBox.blockPos, 0);
+            // collision planes update
+            TerrainCollisionMap.calculateMap(new Vector3f().set(position));
 
         } else blockBreakingCountDown--;
     }
@@ -144,7 +154,11 @@ public class Player {
             CollisionResult isIntoPlayer = entityCollision.isColliding(position, new Vector3f(), new CollisionBox(candidatePos)); // check the collision with player
 
             // place block in the candidate pos if it is air and does not collide with the player)
-            if (ChunkManager.getBlock(candidatePos ) == 0 && !isIntoPlayer.overlapping) ChunkManager.setBlock(candidatePos, toolBar.getId());
+            if (ChunkManager.getBlock(candidatePos ) == 0 && !isIntoPlayer.overlapping) {
+                ChunkManager.setBlock(candidatePos, toolBar.getId());
+                // collision planes update
+                TerrainCollisionMap.calculateMap(new Vector3f().set(position));
+            }
 
         } else blockBreakingCountDown--;
     }
@@ -184,7 +198,7 @@ public class Player {
     }
 
     public Vector2i getChunkPos() {
-        return new Vector2i((int) Math.floor(position.x / Settings.CHUNK_SIZE), (int) Math.floor(position.z / Settings.CHUNK_SIZE));
+        return chunkPos.set((int) Math.floor(position.x / Settings.CHUNK_SIZE), (int) Math.floor(position.z / Settings.CHUNK_SIZE));
     }
 
     public void resetBBcountDown() {

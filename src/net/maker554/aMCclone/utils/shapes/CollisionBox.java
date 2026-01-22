@@ -23,11 +23,13 @@ public class CollisionBox {
         this.distance = 0;
         this.direction = new Vector3i(0, 0, 0);
         this.size = size;
+        this.max = new Vector3f();
+        this.min = new Vector3f();
         updatePos(pos);
     }
 
     public void updatePos(Vector3f pos){
-        this.min = new Vector3f(pos.x-0.4f, pos.y -1.6f, pos.z -0.4f);
-        this.max = new Vector3f(pos.x-0.4f, pos.y -1.6f, pos.z -0.4f).add(size);
+        this.min.set(pos.x-0.4f, pos.y -1.6f, pos.z -0.4f);
+        this.max.set(pos.x-0.4f, pos.y -1.6f, pos.z -0.4f).add(size);
     }
 }

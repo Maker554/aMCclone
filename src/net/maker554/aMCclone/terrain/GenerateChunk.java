@@ -5,10 +5,7 @@ import net.maker554.aMCclone.terrain.features.UnaddedFeature;
 import org.joml.Vector2i;
 import renderEngine.WindowManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
@@ -67,10 +64,12 @@ public class GenerateChunk implements Runnable {
                 TerrainGeneration.placeFeature(unaddedFeature, chunk);
                 unaddedFeaturesList.remove(unaddedFeature);
 
-                // put the chunks in the map with their mesh
-                editedChunks.put(chunk, chunk.buildMesh());
+                // put the chunks in the map with empty mesh
+                editedChunks.put(chunk, null);
             }
         }
+        // finally, we build the mesh for each edited chunk
+        editedChunks.replaceAll((chunk, mesh) -> chunk.buildMesh());
 
         return editedChunks;
     }

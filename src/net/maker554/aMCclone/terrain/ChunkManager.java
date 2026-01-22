@@ -13,7 +13,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-import static java.lang.Math.round;
 import static net.maker554.aMCclone.terrain.TerrainGeneration.fractalNoise;
 
 public class ChunkManager {
@@ -23,7 +22,7 @@ public class ChunkManager {
 
     private static ConcurrentHashMap<Vector2i, Chunk> chunkMap;
     private static ConcurrentLinkedDeque<UnaddedFeature> unaddedFeaturesList = new ConcurrentLinkedDeque<>();
-    private static List<Vector2i> queuedChunks = new ArrayList<>();
+    private static final List<Vector2i> queuedChunks = new ArrayList<>();
 
     public static void loadTerrain(Vector2i playerPos) {
 
@@ -61,13 +60,12 @@ public class ChunkManager {
     }
 
     public static void generateTerrain(Vector2i center) {
-        for (int i=-RENDER_DISTANCE; i < RENDER_DISTANCE; i++)
-            for (int j=-RENDER_DISTANCE; j < RENDER_DISTANCE; j++) {
+        for (int i=-RENDER_DISTANCE; i < RENDER_DISTANCE*2; i++)
+            for (int j=-RENDER_DISTANCE; j < RENDER_DISTANCE*2; j++) {
 
                 Vector2i pos = new Vector2i(center).add(i, j); // get position of the chunk to check
 
                 if (!chunkMap.containsKey(pos) && !queuedChunks.contains(pos)) {
-                    System.out.println(pos);
                     // empty chunk object to fill the key so the generation for the chunks does not start again while in progress;
                     queuedChunks.add(pos);
                     generateChunk(pos.x, pos.y);
@@ -153,25 +151,28 @@ public class ChunkManager {
         // set random for tree generation
         Random random = new Random(TerrainGeneration.getSeed() + (chunk.getX() * 341873128712L) + (chunk.getZ() * 132897987541L));
 
+        List<Vector2i> nearPos = Arrays.asList( // all positions of adjacent chunks where the features could overflow into
+                new Vector2i(-1, -1),
+                new Vector2i(-1, 0),
+                new Vector2i(-1, 1),
+                new Vector2i(0, 1),
+                new Vector2i(0, -1),
+                new Vector2i(1, -1),
+                new Vector2i(1, 0),
+                new Vector2i(1, 1)
+        );
+
+        Vector3i position = new Vector3i();
         for (int j=0; j < TREE_DENSITY; j++) {
 
             int inx = random.nextInt(0, Settings.CHUNK_SIZE);
             int inz = random.nextInt(0, Settings.CHUNK_SIZE);
-            float columnHeight = fractalNoise(chunk.getGlobalCordsFromChunkCords(inx, inz));
+            Vector2i globalChords = chunk.getGlobalCordsFromChunkCords(inx, inz);
+            float columnHeight = fractalNoise(globalChords.x, globalChords.y);
 
-            Tree tree = new Tree(new Vector3i(inx, (int) Math.floor(columnHeight) + 1, inz));
+            position.set(inx, (int) Math.floor(columnHeight) + 1, inz);
+            Tree tree = new Tree(position);
             TerrainGeneration.placeFeature(tree, chunk);
-
-            List<Vector2i> nearPos = Arrays.asList( // all positions of adjacent chunks where the features could overflow into
-                    new Vector2i(-1, -1),
-                    new Vector2i(-1, 0),
-                    new Vector2i(-1, 1),
-                    new Vector2i(0, 1),
-                    new Vector2i(0, -1),
-                    new Vector2i(1, -1),
-                    new Vector2i(1, 0),
-                    new Vector2i(1, 1)
-            );
 
             for (Vector2i pos : nearPos) {
                 unaddedFeaturesList.add(new UnaddedFeature(tree, chunk, pos));

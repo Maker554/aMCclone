@@ -1,6 +1,8 @@
 package net.maker554.aMCclone.collision;
 
+import net.maker554.aMCclone.Client;
 import net.maker554.aMCclone.Settings;
+import net.maker554.aMCclone.TestGame;
 import net.maker554.aMCclone.assets.Square;
 import net.maker554.aMCclone.terrain.Chunk;
 import net.maker554.aMCclone.terrain.ChunkManager;
@@ -23,7 +25,6 @@ public class TerrainCollisionMap {
 
     private static List<CollisionBox> collisionBoxList = new ArrayList<>();
     private static List<Entity> debugPlanesList = new ArrayList<>();
-
 
     public static void calculateMap(Vector3f position) {
         debugPlanesList  = new ArrayList<>();
@@ -50,53 +51,55 @@ public class TerrainCollisionMap {
                             collisionBoxList.add(new CollisionBox(new Vector3i(curX, curY, curZ)));
 
                             // DEBUG VISUALS
-                            // if near faces are air
-                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.UP) == 0) {
+                            if (Client.getGame().getDebugStatus()) {
+                                // if near faces are air
+                                if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.UP) == 0) {
 
-                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.UP).mul(0.52f));
-                                Square square = new Square(1, 1);
-                                Model model = square.getModel();
-                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(90, 90, 0), 1f));
-                            }
+                                    Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.UP).mul(0.52f));
+                                    Square square = new Square(1, 1);
+                                    Model model = square.getModel();
+                                    debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(90, 90, 0), 1f));
+                                }
 
-                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.DOWN) == 0) {
+                                if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.DOWN) == 0) {
 
-                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.DOWN).mul(0.52f));
-                                Square square = new Square(1, 1);
-                                Model model = square.getModel();
-                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(90, 90, 0), 1f));
-                            }
+                                    Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.DOWN).mul(0.52f));
+                                    Square square = new Square(1, 1);
+                                    Model model = square.getModel();
+                                    debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(90, 90, 0), 1f));
+                                }
 
-                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.WEST) == 0) {
+                                if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.WEST) == 0) {
 
-                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.WEST).mul(0.52f));
-                                Square square = new Square(1, 1);
-                                Model model = square.getModel();
-                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 90, 0), 1f));
-                            }
+                                    Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.WEST).mul(0.52f));
+                                    Square square = new Square(1, 1);
+                                    Model model = square.getModel();
+                                    debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 90, 0), 1f));
+                                }
 
-                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.EST) == 0) {
+                                if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.EST) == 0) {
 
-                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.EST).mul(0.52f));
-                                Square square = new Square(1, 1);
-                                Model model = square.getModel();
-                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 90, 0), 1f));
-                            }
+                                    Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.EST).mul(0.52f));
+                                    Square square = new Square(1, 1);
+                                    Model model = square.getModel();
+                                    debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 90, 0), 1f));
+                                }
 
-                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.NORD) == 0) {
+                                if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.NORD) == 0) {
 
-                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.NORD).mul(0.52f));
-                                Square square = new Square(1, 1);
-                                Model model = square.getModel();
-                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 0, 0), 1f));
-                            }
+                                    Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.NORD).mul(0.52f));
+                                    Square square = new Square(1, 1);
+                                    Model model = square.getModel();
+                                    debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 0, 0), 1f));
+                                }
 
-                            if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.SUD) == 0) {
+                                if(ArrayManager.getNearFace(chunk, chunkPos.x, curY, chunkPos.y, DirectionEnum.SUD) == 0) {
 
-                                Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.SUD).mul(0.52f));
-                                Square square = new Square(1, 1);
-                                Model model = square.getModel();
-                                debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 0, 0), 1f));
+                                    Vector3f debugPlanePos = new Vector3f(curX, curY, curZ).add(VectorMath.getNormalf(DirectionEnum.SUD).mul(0.52f));
+                                    Square square = new Square(1, 1);
+                                    Model model = square.getModel();
+                                    debugPlanesList.add(new Entity(model, debugPlanePos, new Vector3f(180, 0, 0), 1f));
+                                }
                             }
                         }
                     }

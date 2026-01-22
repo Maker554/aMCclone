@@ -47,9 +47,8 @@ public class WindowManager {
     }
 
     public void processTasks() {
-        while (!mainThreadTasks.isEmpty()) {
+        if (!mainThreadTasks.isEmpty())
             mainThreadTasks.poll().run();
-        }
     }
 
     public void init() {
